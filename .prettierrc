@@ -1,0 +1,20 @@
+{
+  "semi": false,
+  "singleQuote": true,
+  "jsxSingleQuote": true,
+  "trailingComma": "all",
+  "printWidth": 80,
+  "tabWidth": 2,
+  "useTabs": false,
+  "endOfLine": "lf",
+  "plugins": ["prettier-plugin-organize-imports"],
+  "importOrder": [
+    "^(react|react-dom)$",
+    "^@reduxjs/",
+    "<THIRD_PARTY_MODULES>",
+    "",
+    "^@/",
+    "^[../]",
+    "^[./]"
+  ]
+}
