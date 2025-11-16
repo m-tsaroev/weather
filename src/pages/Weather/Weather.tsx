@@ -4,7 +4,10 @@ const Weather = () => {
   const { data } = useGetForecastQuery({ city: 'Rostov on don' })  
 
   data?.forecast.forecastday.forEach((forecaster) => {
-    console.log(forecaster.day.maxtemp_c)
+    forecaster.hour.forEach(hours => {
+      console.log(hours.time)
+      return
+    });
   })
 
   return <h1>Weather</h1>
