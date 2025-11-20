@@ -5,7 +5,10 @@ import { apiSlice } from './api.slice'
 
 const weatherApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getForecast: builder.query<ForecastApiResponse, { city: string }>({
+    getForecast: builder.query<
+      ForecastApiResponse,
+      { city: string }
+    >({
       query: ({ city = 'Moscow' }) => {
         return {
           url: ENDPOINTS.FORECAST,
@@ -18,7 +21,10 @@ const weatherApiSlice = apiSlice.injectEndpoints({
       providesTags: ['Weather Forecast'],
     }),
 
-    validateApiKey: builder.query<{ valid: boolean }, { apiKey?: string }>({
+    validateApiKey: builder.query<
+      { valid: boolean },
+      { apiKey?: string }
+    >({
       query: ({ apiKey = getApiKey() }) => {
         return {
           url: ENDPOINTS.FORECAST,

@@ -8,10 +8,13 @@
 
   --font-family: 'Roboto', sans-serif;
 
-  --color-light: #FFFFFF;
-  
+  --color-light: #ffffff;
+
   --color-black: #000000;
   --color-raisin-black: #282728;
 
-  --color-graphite: #353A3E;
+  --color-graphite: #353a3e;
+
+  --transition-duration: 0.2s;
+  --transition-duration-long: 0.4s;
 }

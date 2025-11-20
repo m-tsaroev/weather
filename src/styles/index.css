@@ -1,0 +1,9 @@
+@import url('./normalize.css');
+@import url('./fonts.css');
+@import url('./variables.css');
+@import url('./utils.css');
+
+body {
+  transition: 0.2s linear;
+  font-family: var(--font-family);
+}
