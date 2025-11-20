@@ -1,6 +1,7 @@
 const PATHS = {
+  MAIN: '/',
   WEATHER: '/weather',
-  SETUP: '/setup'
+  SETUP: '/setup',
 }
 
 export { PATHS }

@@ -1,0 +1,17 @@
+:root {
+  --laptop: 1023px;
+  --mobile: 767px;
+  --mobile-s: 480px;
+
+  --container-width: 1200px;
+  --container-padding-x: 16px;
+
+  --font-family: 'Roboto', sans-serif;
+
+  --color-light: #FFFFFF;
+  
+  --color-black: #000000;
+  --color-raisin-black: #282728;
+
+  --color-graphite: #353A3E;
+}

@@ -1,12 +1,11 @@
+import { URLS } from '@/config/urls'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-
-const BASE_URL = 'http://api.weatherapi.com/v1/'
 
 const apiSlice = createApi({
   reducerPath: 'api',
-  baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
+  baseQuery: fetchBaseQuery({ baseUrl: URLS.BASE }),
   endpoints: () => ({}),
-  tagTypes: ['Weather Forecast']
+  tagTypes: ['Weather Forecast'],
 })
 
 export { apiSlice }
