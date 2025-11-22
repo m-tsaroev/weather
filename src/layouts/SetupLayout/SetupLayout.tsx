@@ -2,10 +2,9 @@ import { Outlet } from 'react-router-dom'
 
 const SetupLayout = () => {
   return (
-    <>
-      <h1>SetupLayout</h1>
+    <main>
       <Outlet />
-    </>
+    </main>
   )
 }
 

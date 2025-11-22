@@ -1,9 +1,9 @@
 import { STORAGE_KEYS } from '@/config/storageKeys'
 
-const getApiKey = (): string | null => {
+const getApiKey = (): string => {
   return (
     import.meta.env.VITE_WEATHER_API_KEY ||
-    localStorage.getItem(STORAGE_KEYS.API_KEY)
+    localStorage.getItem(STORAGE_KEYS.API_KEY) || ''
   )
 }
 
@@ -15,4 +15,8 @@ const hasApiKey = (): boolean => {
   return !!getApiKey()
 }
 
-export { getApiKey, hasApiKey, setApiKey }
+const deleteApiKey = () => {
+  localStorage.setItem(STORAGE_KEYS.API_KEY, '')
+}
+
+export { getApiKey, hasApiKey, setApiKey, deleteApiKey }
