@@ -1,19 +1,16 @@
 import { ENDPOINTS } from '@/config/urls'
 import type { ForecastApiResponse } from '@/types/weatherForecast.types'
-import { getApiKey } from '@/utils/apiKeys'
+import { getInitialKey } from '@/utils/getInitialKey'
 import { apiSlice } from './api.slice'
 
 const weatherApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getForecast: builder.query<
-      ForecastApiResponse,
-      { city: string }
-    >({
+    getForecast: builder.query<ForecastApiResponse, { city: string }>({
       query: ({ city = 'Moscow' }) => {
         return {
           url: ENDPOINTS.FORECAST,
           params: {
-            key: getApiKey(),
+            key: getInitialKey(),
             q: city,
           },
         }
@@ -21,11 +18,8 @@ const weatherApiSlice = apiSlice.injectEndpoints({
       providesTags: ['Weather Forecast'],
     }),
 
-    validateApiKey: builder.query<
-      { valid: boolean },
-      { apiKey?: string }
-    >({
-      query: ({ apiKey = getApiKey() }) => {
+    validateApiKey: builder.query<{ valid: boolean }, string>({
+      query: (apiKey = getInitialKey()) => {
         return {
           url: ENDPOINTS.FORECAST,
           params: {
@@ -41,4 +35,5 @@ const weatherApiSlice = apiSlice.injectEndpoints({
 })
 
 export { weatherApiSlice }
-export const { useGetForecastQuery, useLazyValidateApiKeyQuery } = weatherApiSlice
+export const { useGetForecastQuery, useLazyValidateApiKeyQuery } =
+  weatherApiSlice

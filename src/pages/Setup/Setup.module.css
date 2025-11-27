@@ -28,7 +28,7 @@
 }
 
 .errorMessage {
-  color: var(--color-burgundy);
+  color: var(--color-red);
 }
 
 .form {

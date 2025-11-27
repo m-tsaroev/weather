@@ -5,10 +5,7 @@ import { WeatherLayout } from '@/layouts/WeatherLayout'
 import { Setup } from '@/pages/Setup'
 import { Weather } from '@/pages/Weather'
 import { testApiKeyLoader } from '@/router/loaders/testApiKey.loader'
-import {
-  createBrowserRouter,
-  redirect,
-} from 'react-router-dom'
+import { createBrowserRouter, redirect } from 'react-router-dom'
 
 const router = createBrowserRouter([
   {

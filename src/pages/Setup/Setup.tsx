@@ -1,39 +1,24 @@
 import { Button } from '@/components/ui/Button'
+import { useActions } from '@/hooks/useActions'
+import { useTypedSelector } from '@/hooks/useTypedSelector'
 import { useLazyValidateApiKeyQuery } from '@/store/api/weatherApi.slice'
-import {
-  deleteApiKey,
-  getApiKey,
-  hasApiKey,
-  setApiKey,
-} from '@/utils/apiKeys'
 import classNames from 'classnames'
-import {
-  useCallback,
-  useEffect,
-  useState,
-  type FormEvent,
-} from 'react'
+import { useCallback, useState, type FormEvent } from 'react'
 import styles from './Setup.module.css'
 
 const Setup = () => {
   const titleId = 'setup'
 
   const [fieldValue, setFieldValue] = useState<string>('')
-  const [isFieldFocus, setIsFieldFocus] =
-    useState<boolean>(false)
+  const [isFieldFocus, setIsFieldFocus] = useState<boolean>(false)
   const [isError, setIsError] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
-  const [checkApiKey, { data }] =
-    useLazyValidateApiKeyQuery()
+  const [validateApiKey] = useLazyValidateApiKeyQuery()
+  const { setApiKey, deleteApiKey } = useActions()
+  const { hasValidApiKey } = useTypedSelector((store) => store.apiKey)
 
-  const [validApiKey, setValidApiKey] = useState<boolean>(
-    data?.valid || false,
-  )
-
-  const onChangeFieldValue = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
+  const onChangeFieldValue = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFieldValue(event.target.value)
   }
 
@@ -42,67 +27,52 @@ const Setup = () => {
       event.preventDefault()
 
       if (!fieldValue) {
-        setValidApiKey(false)
+        setApiKey({
+          valid: false,
+        })
         return
       }
 
       setIsLoading(true)
 
       try {
-        const result = await checkApiKey({
-          apiKey: fieldValue,
-        }).unwrap()
+        const result = await validateApiKey(fieldValue).unwrap()
 
-        setApiKey(fieldValue)
-        setValidApiKey(result.valid)
+        setApiKey({
+          valid: result.valid,
+          apiKey: fieldValue,
+        })
         setIsError(false)
         setIsLoading(false)
         setIsFieldFocus(false)
       } catch {
         setIsError(true)
+      } finally {
         setIsLoading(false)
+        setFieldValue('')
       }
-
-      setFieldValue('')
     },
-    [fieldValue, checkApiKey],
+    [fieldValue, validateApiKey, setApiKey],
   )
 
   const onDeleteButtonClick = useCallback(
     (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault()
       deleteApiKey()
-      setValidApiKey(false)
     },
-    [],
+    [deleteApiKey],
   )
 
-  useEffect(() => {
-    if (hasApiKey()) {
-      checkApiKey({ apiKey: getApiKey() })
-    }
-
-    setIsError(!!(hasApiKey() && !data))
-
-    setValidApiKey(data?.valid || false)
-  }, [checkApiKey, data])
-
   return (
-    <section
-      className={styles.section}
-      aria-labelledby={titleId}
-    >
+    <section className={styles.section} aria-labelledby={titleId}>
       <div className={styles.body}>
         <h1 className={styles.title} id={titleId}>
           Настройка
         </h1>
-        {!validApiKey ? (
+        {!hasValidApiKey ? (
           <p className={styles.subtitle}>
             Введить API ключ из своего профиля с сайта{' '}
-            <a
-              href='https://weatherapi.com'
-              target='_blank'
-            >
+            <a href='https://weatherapi.com' target='_blank'>
               weatherapi.com
             </a>
           </p>
@@ -119,19 +89,14 @@ const Setup = () => {
         )}
         <form
           className={styles.form}
-          onSubmit={
-            !validApiKey
-              ? onAddButtonClick
-              : onDeleteButtonClick
-          }
+          onSubmit={!hasValidApiKey ? onAddButtonClick : onDeleteButtonClick}
         >
-          {!validApiKey && (
+          {!hasValidApiKey && (
             <>
               <div className={styles.field}>
                 <label
                   className={classNames(styles.label, {
-                    [styles.labelShrink]:
-                      fieldValue || isFieldFocus,
+                    [styles.labelShrink]: fieldValue || isFieldFocus,
                     [styles.labelColor]: isFieldFocus,
                   })}
                   htmlFor='api-key'
@@ -158,7 +123,7 @@ const Setup = () => {
               />
             </>
           )}
-          {validApiKey && (
+          {hasValidApiKey && (
             <Button
               lable='Delete key'
               className={styles.button}
