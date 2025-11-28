@@ -1,14 +1,23 @@
 .button {
   padding: 10px 20px;
-  background-color: var(--color-raisin-black);
-  color: var(--color-light);
-  border: none;
+  border-radius: 20px;
+
+  background: rgba(255, 255, 255, 0);
+  border: var(--border);
+
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+
+  color: #fff;
+  text-align: center;
   border-radius: 10px;
   cursor: pointer;
   font-weight: 500;
   transition-duration: var(--transition-duration);
 
   &:hover {
-    box-shadow: 0 0 8px 1px var(--color-graphite);
+    box-shadow: 0 0 8px 3px var(--color-graphite);
+
+    background: rgba(255, 255, 255, 0.03);
   }
 }

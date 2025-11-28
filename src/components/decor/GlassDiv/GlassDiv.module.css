@@ -1,0 +1,51 @@
+.glassDiv {
+  background: var(--block-background);
+  border: var(--border);
+
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+}
+
+.hasCircles {
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(40px);
+    opacity: 0.35;
+    z-index: -1;
+    animation: flashing 10s infinite;
+  }
+
+  &::before {
+    width: 50%;
+    height: 50%;
+    top: -60px;
+    left: -70px;
+    background: radial-gradient(circle, var(--color-light-op-05), #00000000);
+
+  }
+
+  &::after {
+    width: 65%;
+    height: 65%;
+    bottom: -70px;
+    right: -90px;
+    opacity: 0.25;
+    background: radial-gradient(circle, var(--color-light-op-05), #00000000);
+  }
+}
+
+@keyframes flashing {
+
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+}

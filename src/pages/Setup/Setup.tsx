@@ -5,6 +5,7 @@ import { useLazyValidateApiKeyQuery } from '@/store/api/weatherApi.slice'
 import classNames from 'classnames'
 import { useCallback, useState, type FormEvent } from 'react'
 import styles from './Setup.module.css'
+import { GlassDiv } from '@/components/decor/GlassDiv'
 
 const Setup = () => {
   const titleId = 'setup'
@@ -65,7 +66,7 @@ const Setup = () => {
 
   return (
     <section className={styles.section} aria-labelledby={titleId}>
-      <div className={styles.body}>
+      <GlassDiv hasCircles={true} className={styles.body}>
         <h1 className={styles.title} id={titleId}>
           Настройка
         </h1>
@@ -131,7 +132,7 @@ const Setup = () => {
             />
           )}
         </form>
-      </div>
+      </GlassDiv>
     </section>
   )
 }
