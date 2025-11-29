@@ -6,7 +6,7 @@ import styles from './Weather.module.css'
 const Weather = () => {
   const titleId = 'weather'
 
-  const { data, isLoading } = useGetForecastQuery({ city: 'Nazran' })
+  const { data, isLoading } = useGetForecastQuery({ city: 'New York' })
 
   return (
     <section className='section' aria-labelledby={titleId}>

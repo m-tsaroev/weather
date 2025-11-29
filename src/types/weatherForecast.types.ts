@@ -13,6 +13,7 @@ interface Hour {
   temp_c: number
   temp_f: number
   condition: Condition
+  is_day: 1 | 0
 }
 
 interface Condition {
@@ -24,6 +25,7 @@ interface Condition {
 interface Location {
   name: string
   localtime_epoch: number
+  tz_id: string
 }
 
 interface CurrentDay {
@@ -54,4 +56,4 @@ interface ForecastApiResponse {
   }
 }
 
-export type { CurrentDay, ForecastApiResponse, ForecastDay }
+export type { CurrentDay, ForecastApiResponse, ForecastDay, Hour }

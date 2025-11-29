@@ -1,4 +1,4 @@
-import type { ForecastApiResponse } from "@/types/weatherForecast.types";
+import type { ForecastApiResponse } from '@/types/weatherForecast.types'
 
 interface ForecastDayProps {
   data: ForecastApiResponse | undefined
