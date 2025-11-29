@@ -18,8 +18,8 @@ const weatherApiSlice = apiSlice.injectEndpoints({
       providesTags: ['Weather Forecast'],
     }),
 
-    validateApiKey: builder.query<{ valid: boolean }, string>({
-      query: (apiKey = getInitialKey()) => {
+    validateApiKey: builder.query<{ valid: boolean }, { apiKey?: string }>({
+      query: ({ apiKey = getInitialKey() }) => {
         return {
           url: ENDPOINTS.FORECAST,
           params: {

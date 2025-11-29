@@ -1,3 +1,4 @@
+import { GlassDiv } from '@/components/decor/GlassDiv'
 import { Button } from '@/components/ui/Button'
 import { useActions } from '@/hooks/useActions'
 import { useTypedSelector } from '@/hooks/useTypedSelector'
@@ -5,7 +6,6 @@ import { useLazyValidateApiKeyQuery } from '@/store/api/weatherApi.slice'
 import classNames from 'classnames'
 import { useCallback, useState, type FormEvent } from 'react'
 import styles from './Setup.module.css'
-import { GlassDiv } from '@/components/decor/GlassDiv'
 
 const Setup = () => {
   const titleId = 'setup'
@@ -37,7 +37,7 @@ const Setup = () => {
       setIsLoading(true)
 
       try {
-        const result = await validateApiKey(fieldValue).unwrap()
+        const result = await validateApiKey({ apiKey: fieldValue }).unwrap()
 
         setApiKey({
           valid: result.valid,

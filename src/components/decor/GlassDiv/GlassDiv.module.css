@@ -7,10 +7,9 @@
 }
 
 .hasCircles {
-
   &::before,
   &::after {
-    content: "";
+    content: '';
     position: absolute;
     border-radius: 50%;
     filter: blur(40px);
@@ -25,7 +24,6 @@
     top: -60px;
     left: -70px;
     background: radial-gradient(circle, var(--color-light-op-05), #00000000);
-
   }
 
   &::after {
@@ -39,7 +37,6 @@
 }
 
 @keyframes flashing {
-
   0%,
   100% {
     opacity: 0.35;

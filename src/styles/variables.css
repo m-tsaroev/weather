@@ -3,7 +3,7 @@
   --mobile: 767px;
   --mobile-s: 480px;
 
-  --container-width: 1200px;
+  --container-width: 1600px;
   --container-padding-x: 16px;
 
   --font-family: 'Roboto', sans-serif;
@@ -13,7 +13,6 @@
   --color-light-op-03: #ffffff30;
   --color-light-op-003: rgba(255, 255, 255, 0.03);
   --color-light-op-05: #ffffff50;
-
 
   --color-black: #000000;
   --color-raisin-black: #282728;
