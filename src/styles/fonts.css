@@ -21,3 +21,19 @@
   font-size: normal;
   font-display: swap;
 }
+
+@font-face {
+  font-family: 'Rubik';
+  src: url('@/assets/fonts/Rubik-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-size: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Rubik';
+  src: url('@/assets/fonts/Rubik-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-size: normal;
+  font-display: swap;
+}

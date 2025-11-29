@@ -1,6 +1,7 @@
 .glassDiv {
   background: var(--block-background);
   border: var(--border);
+  overflow: hidden;
 
   backdrop-filter: blur(22px);
   -webkit-backdrop-filter: blur(22px);

@@ -7,6 +7,7 @@
   --container-padding-x: 16px;
 
   --font-family: 'Roboto', sans-serif;
+  --font-family-accent: 'Rubik', sans-serif;
 
   --color-light: #ffffff;
   --color-light-op-02: #ffffff20;
@@ -16,7 +17,9 @@
 
   --color-black: #000000;
   --color-raisin-black: #282728;
+  --color-raisin-black-op-08: #28272880;
 
+  --color-gray-600: #7D7878;
   --color-gray-700: #515151;
   --color-gray-800: #3b3b3b;
 
