@@ -1,0 +1,28 @@
+@import url('./normalize.css');
+@import url('./fonts.css');
+@import url('./variables.css');
+@import url('./utils.css');
+
+body {
+  padding: 0;
+  transition: 0.2s linear;
+  background-color: var(--color-black);
+  color: var(--color-light);
+  font-family: var(--font-family);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+html {
+  overflow: hidden;
+}
+
+h1,
+h2 {
+  color: var(--color-light);
+}
+
+a {
+  color: var(--color-graphite-01);
+}

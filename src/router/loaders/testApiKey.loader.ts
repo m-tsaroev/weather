@@ -10,7 +10,7 @@ const testApiKeyLoader = async (): Promise<null | Response> => {
 
   const { data } = await promise
 
-  return data?.valid ? null : redirect(PATHS.SETUP)
+  return data?.valid ? null : redirect(`${PATHS.SETUP}`)
 }
 
 export { testApiKeyLoader }

@@ -1,0 +1,72 @@
+.list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition-duration: var(--transition-duration);
+  border-radius: 5px;
+
+  &:hover {
+    background-color: var(--color-light-op-02);
+    rotate: 0deg;
+  }
+}
+
+.setupItem {
+  border-radius: 5px;
+
+  &:hover {
+    background-color: var(--color-light-op-02);
+    rotate: 0deg;
+  }
+}
+
+.setupLink {
+  color: var(--color-light);
+  padding: 10px;
+  transition-duration: var(--transition-duration);
+
+  svg {
+    width: 35px;
+    height: 35px;
+    stroke: var(--color-light);
+  }
+
+  &:hover {
+    rotate: 30deg;
+  }
+}
+
+.weatherItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.weatherLink {
+  user-select: none;
+  pointer-events: none;
+  filter: drop-shadow(0 0 20px var(--color-light));
+  transition-duration: var(--transition-duration);
+  stroke: var(--color-gray-700);
+
+  &:hover {
+    filter: drop-shadow(0 0 25px var(--color-light));
+  }
+
+  &.active {
+    pointer-events: auto;
+
+    svg,
+    svg * {
+      stroke: var(--color-light);
+      fill: var(--color-light);
+    }
+  }
+}
