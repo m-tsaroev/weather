@@ -32,8 +32,8 @@ const ICONS = {
 
     // --- ОБЛАЧНОСТЬ ---
     1003: { day: CloudSun, night: CloudMoon },
-    1006: { day: Cloudy, night: Cloudy }, 
-    1009: { day: Cloud, night: Cloud }, 
+    1006: { day: Cloudy, night: Cloudy },
+    1009: { day: Cloud, night: Cloud },
 
     // --- ТУМАН / ДЫМКА ---
     1030: { day: CloudFog, night: CloudFog },
@@ -93,4 +93,4 @@ const ICONS = {
 
 type WeatherCode = keyof typeof ICONS.WEATHER
 
-export { type WeatherCode, ICONS }
+export { ICONS, type WeatherCode }

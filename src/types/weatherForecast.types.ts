@@ -1,4 +1,4 @@
-import type { WeatherCode } from "@/config/icons"
+import type { WeatherCode } from '@/config/icons'
 
 interface Day {
   maxtemp_c: number
