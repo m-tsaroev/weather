@@ -1,0 +1,12 @@
+.timeCard {
+  display: flex;
+  flex-direction: column;
+  row-gap: 6px;
+  padding-block: 24px;
+  border-radius: 14px;
+  background-color: var(--color-raisin-black-op-08);
+}
+
+.isActive {
+  background-color: var(--color-light-op-03);
+}

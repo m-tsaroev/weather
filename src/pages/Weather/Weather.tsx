@@ -1,11 +1,12 @@
+import { ForecastDay } from '@/components/ui/ForcastDay'
 import { ForcastNow } from '@/components/ui/ForcastNow'
-import styles from './Weather.module.css'
 import { useGetForecastQuery } from '@/store/api/weatherApi.slice'
+import styles from './Weather.module.css'
 
 const Weather = () => {
   const titleId = 'weather'
 
-  const {data, isLoading} = useGetForecastQuery({city: 'Nazran'})
+  const { data, isLoading } = useGetForecastQuery({ city: 'Nazran' })
 
   return (
     <section className='section' aria-labelledby={titleId}>
@@ -14,6 +15,7 @@ const Weather = () => {
       </h1>
       <div className={styles.body}>
         <ForcastNow data={data} isLoading={isLoading} />
+        <ForecastDay data={data} isLoading={isLoading} />
       </div>
     </section>
   )
