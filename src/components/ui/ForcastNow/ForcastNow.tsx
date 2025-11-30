@@ -39,7 +39,7 @@ const ForcastNow = (props: ForcastNowProps) => {
         <li className={styles.detailsItem}>
           <DetailsCard
             name='Feels like'
-            value={`${data?.current.feelslike_c} C`}
+            value={`${data?.current.feelslike_c}°`}
           />
         </li>
         <li className={styles.detailsItem}>

@@ -17,7 +17,7 @@ const ForecastDay = (props: ForecastDayProps) => {
   const [hours, setHours] = useState<Hour[]>([])
 
   useEffect(() => {
-    const coefficient = 4 - Math.floor(24 / nowHour)
+    const coefficient = 3 - Math.floor(24 / nowHour)
 
     setHours(
       data
