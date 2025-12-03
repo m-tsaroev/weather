@@ -5,6 +5,9 @@ import styles from './Weather.module.css'
 
 const Weather = () => {
   const titleId = 'weather'
+  const onAddFuction = () => {
+    console.log(5)
+  }
 
   return (
     <section className='section' aria-labelledby={titleId}>
@@ -17,10 +20,11 @@ const Weather = () => {
             <WeatherCard city='Moscow' />,
             <WeatherCard city='Nazran' />,
             <WeatherCard city='Rostov on don' />,
+            <WeatherCard city='London' />,
           ]}
           initialSlideIndex={1}
+          onAddButtonFunction={onAddFuction}
         />
-        {/* <WeatherCard city='Moscow' /> */}
       </div>
     </section>
   )
