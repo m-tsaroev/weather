@@ -36,9 +36,7 @@ const Slider = (props: SliderProps) => {
       </Swiper>
 
       <div className={styles.buttons}>
-        <button
-          className={classNames('prevButton', styles.prevButton)}
-        >
+        <button className={classNames('prevButton', styles.prevButton)}>
           <ArrowLeft />
         </button>
 
