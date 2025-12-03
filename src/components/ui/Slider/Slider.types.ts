@@ -1,5 +1,8 @@
+import type { ReactNode } from "react"
+
 interface SliderProps {
-  sliderCards: []
+  sliderCards: ReactNode[]
+  initialSlideIndex?: number
 }
 
 export type { SliderProps }
