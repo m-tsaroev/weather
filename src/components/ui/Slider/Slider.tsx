@@ -1,4 +1,5 @@
 import { AddCityButton } from '@/components/ui/AddCityButton'
+import { WeatherCard } from '@/components/ui/WeatherCard'
 import classNames from 'classnames'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { useState } from 'react'
@@ -10,7 +11,13 @@ import styles from './Slider.module.css'
 import type { SliderProps } from './Slider.types'
 
 const Slider = (props: SliderProps) => {
-  const { sliderCards, initialSlideIndex = 0, onAddButtonFunction } = props
+  const {
+    sliderCards,
+    initialSlideIndex = 0,
+    onAddButtonFunction,
+    onNextCLick,
+    onPrevCLick,
+  } = props
   const [activeSlideIndex, setActiveSlideIndex] = useState<number>(0)
 
   return (
@@ -28,15 +35,18 @@ const Slider = (props: SliderProps) => {
           nextEl: '.nextButton',
         }}
       >
-        {sliderCards.map((card, index) => (
+        {sliderCards.map((city, index) => (
           <SwiperSlide className={styles.sliderSlide} key={index}>
-            {card}
+            <WeatherCard city={city} />
           </SwiperSlide>
         ))}
       </Swiper>
 
       <div className={styles.buttons}>
-        <button className={classNames('prevButton', styles.prevButton)}>
+        <button
+          className={classNames('prevButton', styles.prevButton)}
+          onClick={onPrevCLick}
+        >
           <ArrowLeft />
         </button>
 
@@ -47,6 +57,7 @@ const Slider = (props: SliderProps) => {
           className={classNames('nextButton', styles.nextButton, {
             'visually-hidden': activeSlideIndex === sliderCards.length - 1,
           })}
+          onClick={onNextCLick}
         >
           <ArrowRight />
         </button>

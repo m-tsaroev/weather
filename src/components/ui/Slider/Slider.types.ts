@@ -1,9 +1,9 @@
-import type { ReactNode } from "react"
-
 interface SliderProps {
-  sliderCards: ReactNode[]
+  sliderCards: string[]
   initialSlideIndex?: number
   onAddButtonFunction: () => void
+  onNextCLick: () => void
+  onPrevCLick: () => void
 }
 
 export type { SliderProps }

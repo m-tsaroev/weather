@@ -1,12 +1,29 @@
 import { Slider } from '@/components/ui/Slider'
-import { WeatherCard } from '@/components/ui/WeatherCard'
+import { useActions } from '@/hooks/useActions'
+import { useTypedSelector } from '@/hooks/useTypedSelector'
 import classNames from 'classnames'
 import styles from './Weather.module.css'
+import { Field } from '@/components/ui/Field'
 
 const Weather = () => {
   const titleId = 'weather'
+  
+
+  const { cities, activeCityIndex } = useTypedSelector((state) => state.cities)
+  const { changeActiveCity, addCity } = useActions()
+
   const onAddFuction = () => {
-    console.log(5)
+    const citi = prompt('Введите название города')
+
+    addCity(citi || 'New York')
+  }
+
+  const onPrevButtonClick = () => {
+    changeActiveCity(activeCityIndex - 1)
+  }
+
+  const onNextButtonClick = () => {
+    changeActiveCity(activeCityIndex + 1)
   }
 
   return (
@@ -14,16 +31,13 @@ const Weather = () => {
       <h1 className='visually-hidden' id={titleId}>
         Weather
       </h1>
-      <div className={classNames( styles.body)}>
+      <div className={classNames(styles.body)}>
         <Slider
-          sliderCards={[
-            <WeatherCard city='Moscow' />,
-            <WeatherCard city='Nazran' />,
-            <WeatherCard city='Rostov on don' />,
-            <WeatherCard city='London' />,
-          ]}
-          initialSlideIndex={1}
+          sliderCards={cities}
+          initialSlideIndex={activeCityIndex}
           onAddButtonFunction={onAddFuction}
+          onNextCLick={onNextButtonClick}
+          onPrevCLick={onPrevButtonClick}
         />
       </div>
     </section>

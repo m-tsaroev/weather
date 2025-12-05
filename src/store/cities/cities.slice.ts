@@ -35,5 +35,5 @@ const citiesSlice = createSlice({
 })
 
 export { citiesSlice }
-export const citiesSliceReducer = citiesSlice.reducer
-export const citiesSliceActions = citiesSlice.actions
+export const citiesReducer = citiesSlice.reducer
+export const citiesActions = citiesSlice.actions
