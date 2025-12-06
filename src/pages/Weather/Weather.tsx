@@ -1,21 +1,98 @@
+import { OverlaedForm } from '@/components/ui/OverlaedForm'
 import { Slider } from '@/components/ui/Slider'
 import { useActions } from '@/hooks/useActions'
 import { useTypedSelector } from '@/hooks/useTypedSelector'
+import { useLazyGetForecastQuery } from '@/store/api/weatherApi.slice'
 import classNames from 'classnames'
+import { useEffect, useState, type ChangeEvent, type FormEvent } from 'react'
+import type { SwiperClass } from 'swiper/react'
 import styles from './Weather.module.css'
-import { Field } from '@/components/ui/Field'
 
 const Weather = () => {
   const titleId = 'weather'
-  
 
   const { cities, activeCityIndex } = useTypedSelector((state) => state.cities)
   const { changeActiveCity, addCity } = useActions()
+  const [getForecast] = useLazyGetForecastQuery()
+
+  const [formFieldValue, setFormFieldValue] = useState<string>('')
+  const [isShowForm, setIsShowForm] = useState<boolean>(false)
+  const [errorMessage, setErrorMessage] = useState<string>('')
+  const [isFormLoading, setIsFormLoading] = useState<boolean>(false)
+
+  const [sliderInstans, setSliderInstans] = useState<SwiperClass | null>(null)
+
+  useEffect(() => {
+    sliderInstans?.slideTo(activeCityIndex)
+    console.log(20)
+  }, [activeCityIndex, sliderInstans])
+
+  const onFormFieldChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setFormFieldValue(event.target.value)
+  }
+
+  const onFormSubmitFunction = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    setIsFormLoading(true)
+    try {
+      const isInTheListOfCities = cities.some((city) => city === formFieldValue)
+
+      if (isInTheListOfCities) {
+        throw new Error('Этот город уже добавлен')
+      }
+
+      await getForecast({ city: formFieldValue }).unwrap()
+
+      addCity(formFieldValue)
+      setFormFieldValue('')
+      setIsShowForm(false)
+      setErrorMessage('')
+      setIsFormLoading(false)
+      changeActiveCity(cities.length)
+    } catch (error) {
+      if (
+        typeof error === 'object' &&
+        error !== null &&
+        'status' in error &&
+        'data' in error
+      ) {
+        const err = error as {
+          status: number
+          data: {
+            error: {
+              code: number
+              message: string
+            }
+          }
+        }
+
+        setErrorMessage(err.data.error.message)
+        setIsFormLoading(false)
+        return
+      }
+
+      if (
+        typeof error === 'object' &&
+        error !== null &&
+        'message' in error &&
+        typeof error.message === 'string'
+      ) {
+        setErrorMessage(error.message)
+        setIsFormLoading(false)
+      }
+    } finally {
+      setIsFormLoading(false)
+    }
+  }
 
   const onAddFuction = () => {
-    const citi = prompt('Введите название города')
+    setIsShowForm(true)
+  }
 
-    addCity(citi || 'New York')
+  const onCloseFormButtonClick = () => {
+    setFormFieldValue('')
+    setIsShowForm(false)
+    setErrorMessage('')
   }
 
   const onPrevButtonClick = () => {
@@ -38,8 +115,18 @@ const Weather = () => {
           onAddButtonFunction={onAddFuction}
           onNextCLick={onNextButtonClick}
           onPrevCLick={onPrevButtonClick}
+          swiperInstansSetter={setSliderInstans}
         />
       </div>
+      <OverlaedForm
+        value={formFieldValue}
+        setValueFunction={onFormFieldChange}
+        onSubmitFunction={onFormSubmitFunction}
+        onCloseFunction={onCloseFormButtonClick}
+        errorMessage={errorMessage}
+        isLoading={isFormLoading}
+        isShow={isShowForm}
+      />
     </section>
   )
 }

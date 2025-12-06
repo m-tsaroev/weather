@@ -17,20 +17,17 @@ const ForecastDay = (props: ForecastDayProps) => {
   const [hours, setHours] = useState<Hour[]>([])
 
   useEffect(() => {
-    const coefficient = 3 - Math.floor(24 / nowHour)
+    const coefficient = Math.floor(24 / nowHour) % 3
+
+    const hourArray = data?.forecast?.forecastday?.[0]?.hour ?? []
 
     setHours(
-      data
-        ? [
-            ...data?.forecast.forecastday[0].hour.filter(
-              (_, index) =>
-                index + 1 > 6 * coefficient &&
-                index + 1 <= 6 * (coefficient + 1),
-            ),
-          ]
-        : [],
+      hourArray.filter(
+        (_, index) =>
+          index + 1 > 6 * coefficient && index + 1 <= 6 * (coefficient + 1),
+      ),
     )
-  }, [data])
+  }, [data, nowHour])
 
   return (
     <GlassDiv className={styles.forecastDay} hasCircles={true}>

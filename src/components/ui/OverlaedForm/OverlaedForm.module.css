@@ -1,0 +1,58 @@
+.overlay {
+  position: absolute;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  backdrop-filter: blur(20px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.form {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  row-gap: 10px;
+  position: relative;
+  border: var(--border);
+  background: var(--color-black-op-05);
+  padding: 32px 40px;
+  border-radius: 20px;
+}
+
+.formGroup {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+}
+
+.closeCross {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: none;
+  color: var(--color-light);
+  padding: 3px;
+  transition-duration: var(--transition-duration);
+  border: 1px solid transparent;
+  border-radius: 14px;
+
+  &:hover {
+    filter: drop-shadow(0 0 5px var(--color-light));
+  }
+
+  svg {
+    rotate: 45deg;
+  }
+}
+
+.errorMessage {
+  color: var(--color-red);
+}

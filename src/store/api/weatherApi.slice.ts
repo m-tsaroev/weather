@@ -35,5 +35,8 @@ const weatherApiSlice = apiSlice.injectEndpoints({
 })
 
 export { weatherApiSlice }
-export const { useGetForecastQuery, useLazyValidateApiKeyQuery } =
-  weatherApiSlice
+export const {
+  useGetForecastQuery,
+  useLazyGetForecastQuery,
+  useLazyValidateApiKeyQuery,
+} = weatherApiSlice

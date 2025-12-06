@@ -7,6 +7,7 @@ interface FieldProps {
   id: string
   type: string
   className?: string
+  autoFocus?: boolean
 }
 
 export type { FieldProps }

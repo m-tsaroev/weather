@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux'
 
 const allActions = {
   ...apiKeyActions,
-  ...citiesActions
+  ...citiesActions,
 }
 
 const useActions = () => {

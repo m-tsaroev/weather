@@ -101,7 +101,7 @@ const Setup = () => {
               />
 
               <Button
-                lable={isLoading ? 'Loading...' : 'Add key'}
+                label={isLoading ? 'Loading...' : 'Add key'}
                 className={styles.button}
                 type='submit'
               />
@@ -109,7 +109,7 @@ const Setup = () => {
           )}
           {hasValidApiKey && (
             <Button
-              lable='Delete key'
+              label='Delete key'
               className={styles.button}
               type='submit'
             />

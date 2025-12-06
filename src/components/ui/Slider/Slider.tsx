@@ -17,6 +17,7 @@ const Slider = (props: SliderProps) => {
     onAddButtonFunction,
     onNextCLick,
     onPrevCLick,
+    swiperInstansSetter,
   } = props
   const [activeSlideIndex, setActiveSlideIndex] = useState<number>(0)
 
@@ -27,6 +28,7 @@ const Slider = (props: SliderProps) => {
         spaceBetween={20}
         slidesPerView='auto'
         initialSlide={initialSlideIndex}
+        onSwiper={swiperInstansSetter}
         onSlideChange={(swiper) => {
           setActiveSlideIndex(swiper.activeIndex)
         }}

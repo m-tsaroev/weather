@@ -7,7 +7,7 @@ const store = configureStore({
   reducer: {
     [apiSlice.reducerPath]: apiSlice.reducer,
     apiKey: apiKeyReducer,
-    cities: citiesReducer
+    cities: citiesReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(apiSlice.middleware),

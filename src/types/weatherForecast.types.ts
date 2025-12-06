@@ -56,4 +56,14 @@ interface ForecastApiResponse {
   }
 }
 
-export type { CurrentDay, ForecastApiResponse, ForecastDay, Hour }
+interface Error {
+  status: number
+  data?: {
+    error: {
+      code: number
+      message: string
+    }
+  }
+}
+
+export type { CurrentDay, Error, ForecastApiResponse, ForecastDay, Hour }

@@ -22,7 +22,7 @@ const AddCityButton = (props: AddCityButtonProps) => {
         duration: 0.2,
       }}
       whileHover={{
-        backgroundColor: '#ffffff20'
+        backgroundColor: '#ffffff20',
       }}
     >
       <Plus />

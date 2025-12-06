@@ -1,10 +1,18 @@
 import classNames from 'classnames'
+import { useState } from 'react'
 import styles from './Field.module.css'
 import type { FieldProps } from './Field.types'
-import { useState } from 'react'
 
 const Field = (props: FieldProps) => {
-  const { value, setValueFunction, label, id, type, className } = props
+  const {
+    value,
+    setValueFunction,
+    label,
+    id,
+    type,
+    className,
+    autoFocus = false,
+  } = props
 
   const [isFieldFocus, setIsFieldFocus] = useState<boolean>(false)
 
@@ -29,6 +37,7 @@ const Field = (props: FieldProps) => {
         id={id}
         placeholder=' '
         autoComplete='off'
+        autoFocus={autoFocus}
       />
     </div>
   )
