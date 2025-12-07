@@ -1,6 +1,7 @@
 import { OverlaedForm } from '@/components/ui/OverlaedForm'
 import { Slider } from '@/components/ui/Slider'
 import { useActions } from '@/hooks/useActions'
+import { useOutside } from '@/hooks/useOutside'
 import { useTypedSelector } from '@/hooks/useTypedSelector'
 import { useLazyGetForecastQuery } from '@/store/api/weatherApi.slice'
 import classNames from 'classnames'
@@ -16,15 +17,19 @@ const Weather = () => {
   const [getForecast] = useLazyGetForecastQuery()
 
   const [formFieldValue, setFormFieldValue] = useState<string>('')
-  const [isShowForm, setIsShowForm] = useState<boolean>(false)
   const [errorMessage, setErrorMessage] = useState<string>('')
   const [isFormLoading, setIsFormLoading] = useState<boolean>(false)
 
   const [sliderInstans, setSliderInstans] = useState<SwiperClass | null>(null)
 
+  const {
+    ref: formRef,
+    isShow: isShowForm,
+    setIsShow: setIsShowForm,
+  } = useOutside<HTMLFormElement>(false)
+
   useEffect(() => {
     sliderInstans?.slideTo(activeCityIndex)
-    console.log(20)
   }, [activeCityIndex, sliderInstans])
 
   const onFormFieldChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -126,6 +131,7 @@ const Weather = () => {
         errorMessage={errorMessage}
         isLoading={isFormLoading}
         isShow={isShowForm}
+        formRef={formRef}
       />
     </section>
   )

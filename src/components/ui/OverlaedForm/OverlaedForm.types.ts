@@ -1,4 +1,4 @@
-import type { ChangeEvent, FormEvent } from 'react'
+import type { ChangeEvent, FormEvent, RefObject } from 'react'
 
 interface OverlaedFormProps {
   value: string
@@ -8,6 +8,7 @@ interface OverlaedFormProps {
   errorMessage: string
   isLoading: boolean
   isShow: boolean
+  formRef: RefObject<HTMLFormElement | null>
   className?: string
 }
 
