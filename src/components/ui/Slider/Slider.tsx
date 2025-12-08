@@ -23,6 +23,8 @@ const Slider = (props: SliderProps) => {
 
   return (
     <div className={styles.slider}>
+      <div className={classNames('pagination-dots', styles.pagination)}></div>
+
       <Swiper
         modules={[Pagination, Navigation]}
         spaceBetween={20}
@@ -35,6 +37,12 @@ const Slider = (props: SliderProps) => {
         navigation={{
           prevEl: '.prevButton',
           nextEl: '.nextButton',
+        }}
+        pagination={{
+          el: '.pagination-dots',
+          bulletClass: styles.pagiantionBullet,
+          bulletActiveClass: styles.isActive,
+          clickable: true,
         }}
       >
         {sliderCards.map((city, index) => (

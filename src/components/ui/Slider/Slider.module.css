@@ -17,7 +17,7 @@
   top: 50%;
   transform: translateY(-50%);
   z-index: 1;
-  height: 100%;
+  height: calc(100% - 20px);
   padding-inline: 20px;
   background-color: var(--color-black);
   color: var(--color-light);
@@ -43,4 +43,39 @@
 .prevButton {
   left: 0px;
   box-shadow: 15px 0 50px var(--color-black);
+}
+
+.pagination {
+  position: absolute;
+  bottom: auto !important;
+  left: 50% !important;
+  top: -50px !important;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 15px;
+}
+
+.pagiantionBullet {
+  background-color: var(--color-light-op-05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  transition-duration: var(--transition-duration);
+  cursor: pointer;
+  /* padding: 5px; */
+
+  &:hover {
+    background-color: var(--color-light);
+  }
+}
+
+.isActive {
+  background-color: var(--color-light);
+  scale: 1.2;
+  box-shadow: 0 0 10px var(--color-light);
 }
