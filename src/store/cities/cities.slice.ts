@@ -21,7 +21,7 @@ const citiesSlice = createSlice({
       citiesStorageActions('set', state)
     },
     removeCity: (state, action: PayloadAction<string>) => {
-      state.cities.filter((city) => city === action.payload)
+      state.cities = state.cities.filter((city) => city !== action.payload)
       citiesStorageActions('set', state)
     },
     changeActiveCity: (state, action: PayloadAction<number>) => {

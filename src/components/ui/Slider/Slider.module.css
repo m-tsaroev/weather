@@ -17,7 +17,7 @@
   top: 50%;
   transform: translateY(-50%);
   z-index: 1;
-  height: calc(100% - 20px);
+  height: 100%;
   padding-inline: 20px;
   background-color: var(--color-black);
   color: var(--color-light);

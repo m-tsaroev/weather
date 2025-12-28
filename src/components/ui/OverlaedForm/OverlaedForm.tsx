@@ -37,7 +37,11 @@ const OverlaedForm = (props: OverlaedFormProps) => {
           }}
           className={classNames(styles.overlay, className)}
         >
-          <form ref={formRef} className={styles.form} onSubmit={onSubmitFunction}>
+          <form
+            ref={formRef}
+            className={styles.form}
+            onSubmit={onSubmitFunction}
+          >
             <button
               onClick={onCloseFunction}
               type='button'

@@ -31,7 +31,9 @@
 
   --color-red: #fe080a;
 
-  --border: 1px solid rgba(255, 255, 255, 0.12);
+  --border-color: rgba(255, 255, 255, 0.12);
+
+  --border: 1px solid var(--border-color);
 
   --block-background: rgba(255, 255, 255, 0.06);
 

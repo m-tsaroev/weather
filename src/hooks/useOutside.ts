@@ -20,10 +20,7 @@ const useOutside = <RefElementType extends HTMLElement>(
   const ref = useRef<RefElementType | null>(null)
 
   const handleClickOutside = (event: Event) => {
-    if (
-      ref.current &&
-      !ref.current.contains(event.target as HTMLElement)
-    ) {
+    if (ref.current && !ref.current.contains(event.target as HTMLElement)) {
       setIsShow(false)
     }
   }

@@ -11,7 +11,7 @@ const WeatherCard = (props: WeatherCardProps) => {
 
   return (
     <div className={styles.weatherCard}>
-      <ForcastNow data={data} isLoading={isLoading} />
+      <ForcastNow city={city} data={data} isLoading={isLoading} />
       <ForecastDay data={data} isLoading={isLoading} />
     </div>
   )
