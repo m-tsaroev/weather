@@ -1,13 +1,24 @@
 import type { Dispatch, SetStateAction } from 'react'
 import type { SwiperClass } from 'swiper/react'
 
-interface SliderProps {
+interface SliderParams {
+  slidesPerView: number | 'auto'
+  hasPagination: boolean
+  hasNavigation: boolean
   sliderCards: string[]
   initialSlideIndex?: number
-  onAddButtonFunction: () => void
-  onNextCLick: () => void
-  onPrevCLick: () => void
+  activeSlideIndex: number
+  changeActiveSlideFunction?: (slideIndex: number) => void
+  onAddButtonFunction?: () => void
+  onNextCLick?: () => void
+  onPrevCLick?: () => void
+  onPaginationBulletCLick?: (index: number) => void
   swiperInstansSetter?: Dispatch<SetStateAction<SwiperClass | null>>
+}
+
+interface SliderProps {
+  className: string
+  sliderParams: SliderParams
 }
 
 export type { SliderProps }

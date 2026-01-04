@@ -2,47 +2,55 @@ import { AddCityButton } from '@/components/ui/AddCityButton'
 import { WeatherCard } from '@/components/ui/WeatherCard'
 import classNames from 'classnames'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
-import { useState } from 'react'
 import 'swiper/css'
 import 'swiper/css/bundle'
-import { Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import styles from './Slider.module.css'
 import type { SliderProps } from './Slider.types'
 
 const Slider = (props: SliderProps) => {
+  const { className, sliderParams } = props
+
   const {
+    slidesPerView = 'auto',
+    hasPagination,
+    hasNavigation,
     sliderCards,
     initialSlideIndex = 0,
+    activeSlideIndex,
+    changeActiveSlideFunction,
     onAddButtonFunction,
     onNextCLick,
     onPrevCLick,
+    onPaginationBulletCLick,
     swiperInstansSetter,
-  } = props
-  const [activeSlideIndex, setActiveSlideIndex] = useState<number>(0)
+  } = sliderParams
 
   return (
-    <div className={styles.slider}>
-      <div className={classNames('pagination-dots', styles.pagination)}></div>
+    <div className={classNames(styles.slider, className)}>
+      {hasPagination && (
+        <div className={styles.pagination}>
+          {sliderCards.map((_, index) => (
+            <div
+              className={classNames(styles.pagiantionBullet, {
+                [styles.isActive]: index === activeSlideIndex,
+              })}
+              onClick={() => {
+                onPaginationBulletCLick?.(index)
+              }}
+              key={index}
+            ></div>
+          ))}
+        </div>
+      )}
 
       <Swiper
-        modules={[Pagination, Navigation]}
         spaceBetween={20}
-        slidesPerView='auto'
+        slidesPerView={slidesPerView}
         initialSlide={initialSlideIndex}
         onSwiper={swiperInstansSetter}
         onSlideChange={(swiper) => {
-          setActiveSlideIndex(swiper.activeIndex)
-        }}
-        navigation={{
-          prevEl: '.prevButton',
-          nextEl: '.nextButton',
-        }}
-        pagination={{
-          el: '.pagination-dots',
-          bulletClass: styles.pagiantionBullet,
-          bulletActiveClass: styles.isActive,
-          clickable: true,
+          changeActiveSlideFunction?.(swiper.activeIndex)
         }}
       >
         {sliderCards.map((city, index) => (
@@ -52,26 +60,33 @@ const Slider = (props: SliderProps) => {
         ))}
       </Swiper>
 
-      <div className={styles.buttons}>
-        <button
-          className={classNames('prevButton', styles.prevButton)}
-          onClick={onPrevCLick}
-        >
-          <ArrowLeft />
-        </button>
+      {hasNavigation && (
+        <div className={styles.buttons}>
+          <button
+            className={classNames('prevButton', styles.prevButton)}
+            disabled={activeSlideIndex === 0}
+            onClick={onPrevCLick}
+          >
+            <ArrowLeft />
+          </button>
 
-        {activeSlideIndex === sliderCards.length - 1 && (
-          <AddCityButton onClickFunction={onAddButtonFunction} side='right' />
-        )}
-        <button
-          className={classNames('nextButton', styles.nextButton, {
-            'visually-hidden': activeSlideIndex === sliderCards.length - 1,
-          })}
-          onClick={onNextCLick}
-        >
-          <ArrowRight />
-        </button>
-      </div>
+          {activeSlideIndex === sliderCards.length - 1 &&
+            onAddButtonFunction && (
+              <AddCityButton
+                onClickFunction={onAddButtonFunction}
+                side='right'
+              />
+            )}
+          <button
+            className={classNames('nextButton', styles.nextButton, {
+              'visually-hidden': activeSlideIndex === sliderCards.length - 1,
+            })}
+            onClick={onNextCLick}
+          >
+            <ArrowRight />
+          </button>
+        </div>
+      )}
     </div>
   )
 }

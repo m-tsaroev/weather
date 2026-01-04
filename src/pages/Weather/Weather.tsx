@@ -108,6 +108,10 @@ const Weather = () => {
     changeActiveCity(activeCityIndex + 1)
   }
 
+  const onPaginationBulletButtonClick = (activateCityIndex: number) => {
+    changeActiveCity(activateCityIndex)
+  }
+
   return (
     <section className='section' aria-labelledby={titleId}>
       <h1 className='visually-hidden' id={titleId}>
@@ -115,12 +119,21 @@ const Weather = () => {
       </h1>
       <div className={classNames(styles.body)}>
         <Slider
-          sliderCards={cities}
-          initialSlideIndex={activeCityIndex}
-          onAddButtonFunction={onAddFuction}
-          onNextCLick={onNextButtonClick}
-          onPrevCLick={onPrevButtonClick}
-          swiperInstansSetter={setSliderInstans}
+          className='weather-slider'
+          sliderParams={{
+            slidesPerView: 'auto',
+            hasPagination: true,
+            hasNavigation: true,
+            sliderCards: cities,
+            initialSlideIndex: activeCityIndex,
+            activeSlideIndex: activeCityIndex,
+            changeActiveSlideFunction: changeActiveCity,
+            onAddButtonFunction: onAddFuction,
+            onNextCLick: onNextButtonClick,
+            onPrevCLick: onPrevButtonClick,
+            onPaginationBulletCLick: onPaginationBulletButtonClick,
+            swiperInstansSetter: setSliderInstans,
+          }}
         />
       </div>
       <OverlaedForm
