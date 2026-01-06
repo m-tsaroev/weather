@@ -1,5 +1,6 @@
 import { OverlaedForm } from '@/components/ui/OverlaedForm'
 import { Slider } from '@/components/ui/Slider'
+import { WeatherCard } from '@/components/ui/WeatherCard'
 import { useActions } from '@/hooks/useActions'
 import { useOutside } from '@/hooks/useOutside'
 import { useTypedSelector } from '@/hooks/useTypedSelector'
@@ -7,6 +8,7 @@ import { useLazyGetForecastQuery } from '@/store/api/weatherApi.slice'
 import classNames from 'classnames'
 import { useEffect, useState, type ChangeEvent, type FormEvent } from 'react'
 import type { SwiperClass } from 'swiper/react'
+import { SwiperSlide } from 'swiper/react'
 import styles from './Weather.module.css'
 
 const Weather = () => {
@@ -120,12 +122,15 @@ const Weather = () => {
       <div className={classNames(styles.body)}>
         <Slider
           className='weather-slider'
+          slidesCardsCount={cities.length}
           sliderParams={{
+            mode: 'custom',
             slidesPerView: 'auto',
             hasPagination: true,
             hasNavigation: true,
-            sliderCards: cities,
             initialSlideIndex: activeCityIndex,
+            hasSimulateTouch: false,
+            hasAllowTouchMove: false,
             activeSlideIndex: activeCityIndex,
             changeActiveSlideFunction: changeActiveCity,
             onAddButtonFunction: onAddFuction,
@@ -134,7 +139,19 @@ const Weather = () => {
             onPaginationBulletCLick: onPaginationBulletButtonClick,
             swiperInstansSetter: setSliderInstans,
           }}
-        />
+        >
+          {cities.map((city, index) => (
+            <SwiperSlide
+              style={{
+                display: 'flex',
+                justifyContent: 'center   ',
+              }}
+              key={index}
+            >
+              <WeatherCard city={city} />
+            </SwiperSlide>
+          ))}
+        </Slider>
       </div>
       <OverlaedForm
         value={formFieldValue}

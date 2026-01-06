@@ -3,6 +3,8 @@ import { TimeCard } from '@/components/ui/TimeCard'
 import type { Hour } from '@/types/weatherForecast.types'
 import { getHourFromSeconds } from '@/utils/getHourFromSeconds'
 import { useEffect, useState } from 'react'
+import { SwiperSlide } from 'swiper/react'
+import { Slider } from '../Slider'
 import styles from './ForecastDay.module.css'
 import type { ForecastDayProps } from './ForecastDay.types'
 
@@ -17,32 +19,40 @@ const ForecastDay = (props: ForecastDayProps) => {
   const [hours, setHours] = useState<Hour[]>([])
 
   useEffect(() => {
-    const coefficient = Math.floor(24 / nowHour) % 3
-
     const hourArray = data?.forecast?.forecastday?.[0]?.hour ?? []
 
-    setHours(
-      hourArray.filter(
-        (_, index) =>
-          index + 1 > 6 * coefficient && index + 1 <= 6 * (coefficient + 1),
-      ),
-    )
+    setHours(hourArray.filter((_, index) => index >= nowHour || index > 18))
   }, [data, nowHour])
 
   return (
-    <GlassDiv className={styles.forecastDay} hasCircles={true}>
-      {hours.map((hour) => (
-        <TimeCard
-          data={hour}
-          isLoading={isLoading}
-          isActive={
-            getHourFromSeconds(hour.time_epoch, true, data?.location.tz_id) ===
-            nowHour
-          }
-          timeZoneId={data?.location.tz_id}
-          key={hour.time_epoch}
-        />
-      ))}
+    <GlassDiv className={styles.forecastDay} hasCircles>
+      <Slider
+        className={styles.forecastDaySlider}
+        slidesCardsCount={hours.length}
+        sliderParams={{
+          mode: 'basic',
+          slidesPerView: 6.3,
+          spaceBetween: 15,
+        }}
+      >
+        {hours.map((hour, index) => (
+          <SwiperSlide className={styles.forecastDaySlide} key={index}>
+            <TimeCard
+              data={hour}
+              isLoading={isLoading}
+              isActive={
+                getHourFromSeconds(
+                  hour.time_epoch,
+                  true,
+                  data?.location.tz_id,
+                ) === nowHour
+              }
+              timeZoneId={data?.location.tz_id}
+              key={hour.time_epoch}
+            />
+          </SwiperSlide>
+        ))}
+      </Slider>
     </GlassDiv>
   )
 }

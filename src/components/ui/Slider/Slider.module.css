@@ -3,11 +3,6 @@
   width: 100%;
 }
 
-.sliderSlide {
-  display: flex;
-  justify-content: center;
-}
-
 .prevButton,
 .nextButton {
   display: flex;
