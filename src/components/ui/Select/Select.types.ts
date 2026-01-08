@@ -14,7 +14,8 @@ interface SelectProps {
   value?: string | ReactNode
   closeValue?: string | ReactNode
   options: Option[]
-  tabIndex: number
+  tabIndex?: number
+  dropdownSide?: 'left' | 'center' | 'right'
   className: string
 }
 

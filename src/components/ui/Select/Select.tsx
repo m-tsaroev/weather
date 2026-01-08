@@ -11,7 +11,8 @@ const Select = (props: SelectProps) => {
     value,
     closeValue,
     options,
-    tabIndex,
+    tabIndex = 0,
+    dropdownSide = 'left',
     className,
   } = props
 
@@ -84,6 +85,10 @@ const Select = (props: SelectProps) => {
     if (action) action()
   }
 
+  const onDropDownClick = (event: React.MouseEvent) => {
+    event.stopPropagation()
+  }
+
   useEffect(() => {
     const currentOptionElements =
       dropdownRef.current?.querySelectorAll('button')
@@ -95,7 +100,6 @@ const Select = (props: SelectProps) => {
     <div
       className={classNames(styles.select, className)}
       onKeyDown={onSelectButtonKeyDown}
-      ref={dropdownRef}
     >
       <label id={IDs.label} className='visually-hidden'>
         Select {name}
@@ -120,10 +124,14 @@ const Select = (props: SelectProps) => {
         className={classNames(
           styles.dropdown,
           isDropDownShow && styles.isDropdownOpen,
+          {
+            [styles[dropdownSide]]: dropdownSide,
+          },
         )}
         id={IDs.dropdown}
         role='listbox'
         aria-labelledby={IDs.label}
+        onClick={onDropDownClick}
       >
         {options.map((option, index) => (
           <button

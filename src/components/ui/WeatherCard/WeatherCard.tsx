@@ -7,7 +7,7 @@ import styles from './WeatherCard.module.css'
 import type { WeatherCardProps } from './WeatherCard.types'
 
 const WeatherCard = (props: WeatherCardProps) => {
-  const { city } = props
+  const { city, isActive } = props
 
   const [hasLoaded, setHasLoaded] = useState<boolean>(false)
 
@@ -29,8 +29,13 @@ const WeatherCard = (props: WeatherCardProps) => {
 
   return (
     <div className={styles.weatherCard}>
-      <ForcastNow city={city} data={data} isLoading={isLoading} />
-      <ForecastDay data={data} isLoading={isLoading} />
+      <ForcastNow
+        city={city}
+        data={data}
+        isActive={isActive}
+        isLoading={isLoading}
+      />
+      <ForecastDay data={data} isActive={isActive} isLoading={isLoading} />
     </div>
   )
 }

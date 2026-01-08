@@ -31,7 +31,7 @@ const useOutside = <RefElementType extends HTMLElement>(
     return () => {
       document.removeEventListener('click', handleClickOutside, true)
     }
-  })
+  }, [])
 
   return { ref, isShow, setIsShow }
 }

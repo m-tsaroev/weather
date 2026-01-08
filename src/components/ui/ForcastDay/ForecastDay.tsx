@@ -9,7 +9,7 @@ import styles from './ForecastDay.module.css'
 import type { ForecastDayProps } from './ForecastDay.types'
 
 const ForecastDay = (props: ForecastDayProps) => {
-  const { data, isLoading } = props
+  const { data, isActive, isLoading } = props
 
   const nowHour = getHourFromSeconds(
     data?.location.localtime_epoch || Date.now() / 1000,
@@ -21,11 +21,15 @@ const ForecastDay = (props: ForecastDayProps) => {
   useEffect(() => {
     const hourArray = data?.forecast?.forecastday?.[0]?.hour ?? []
 
-    setHours(hourArray.filter((_, index) => index >= nowHour || index > 18))
+    setHours(hourArray.filter((_, index) => index >= nowHour || index >= 18))
   }, [data, nowHour])
 
   return (
-    <GlassDiv className={styles.forecastDay} hasCircles>
+    <GlassDiv
+      className={styles.forecastDay}
+      hasCircles
+      tabIndex={isActive ? 0 : -1}
+    >
       <Slider
         className={styles.forecastDaySlider}
         slidesCardsCount={hours.length}

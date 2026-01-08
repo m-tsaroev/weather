@@ -6,7 +6,13 @@ import { useOutside } from '@/hooks/useOutside'
 import { useTypedSelector } from '@/hooks/useTypedSelector'
 import { useLazyGetForecastQuery } from '@/store/api/weatherApi.slice'
 import classNames from 'classnames'
-import { useEffect, useState, type ChangeEvent, type FormEvent } from 'react'
+import {
+  useEffect,
+  useRef,
+  useState,
+  type ChangeEvent,
+  type FormEvent,
+} from 'react'
 import type { SwiperClass } from 'swiper/react'
 import { SwiperSlide } from 'swiper/react'
 import styles from './Weather.module.css'
@@ -14,7 +20,9 @@ import styles from './Weather.module.css'
 const Weather = () => {
   const titleId = 'weather'
 
-  const { cities, activeCityIndex } = useTypedSelector((state) => state.cities)
+  const { cities, activeCityIndex, activeCityName } = useTypedSelector(
+    (state) => state.cities,
+  )
   const { changeActiveCity, addCity } = useActions()
   const [getForecast] = useLazyGetForecastQuery()
 
@@ -114,6 +122,16 @@ const Weather = () => {
     changeActiveCity(activateCityIndex)
   }
 
+  const [swiperKey, setSwiperKey] = useState(0)
+  const prevCitiesLength = useRef(cities.length)
+
+  useEffect(() => {
+    if (cities.length !== prevCitiesLength.current) {
+      setSwiperKey((prev) => prev + 1)
+      prevCitiesLength.current = cities.length
+    }
+  }, [cities.length])
+
   return (
     <section className='section' aria-labelledby={titleId}>
       <h1 className='visually-hidden' id={titleId}>
@@ -121,6 +139,7 @@ const Weather = () => {
       </h1>
       <div className={classNames(styles.body)}>
         <Slider
+          key={`slider-${swiperKey}`}
           className='weather-slider'
           slidesCardsCount={cities.length}
           sliderParams={{
@@ -140,15 +159,15 @@ const Weather = () => {
             swiperInstansSetter: setSliderInstans,
           }}
         >
-          {cities.map((city, index) => (
+          {cities.map((city) => (
             <SwiperSlide
               style={{
                 display: 'flex',
                 justifyContent: 'center   ',
               }}
-              key={index}
+              key={city}
             >
-              <WeatherCard city={city} />
+              <WeatherCard city={city} isActive={city === activeCityName} />
             </SwiperSlide>
           ))}
         </Slider>

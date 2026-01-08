@@ -10,7 +10,7 @@ import styles from './ForcastNow.module.css'
 import type { ForcastNowProps } from './ForcastNow.types'
 
 const ForcastNow = (props: ForcastNowProps) => {
-  const { city, data, isLoading } = props
+  const { city, data, isActive, isLoading } = props
 
   const { activeCityName } = useTypedSelector((state) => state.cities)
   const { removeCity } = useActions()
@@ -33,7 +33,11 @@ const ForcastNow = (props: ForcastNowProps) => {
   }
 
   return (
-    <GlassDiv className={styles.forcastNow} hasCircles={true}>
+    <GlassDiv
+      className={styles.forcastNow}
+      hasCircles={true}
+      tabIndex={isActive ? 0 : -1}
+    >
       <Select
         name='forecast-now'
         hasSelection={false}

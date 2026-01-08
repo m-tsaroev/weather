@@ -14,7 +14,7 @@ const citiesStorageActions: CitiesStorageActions = (
 
     if (!raw) {
       return {
-        cities: ['London', 'Moscow'],
+        cities: ['London', 'Nazran'],
         activeCityName: 'London',
         activeCityIndex: 0,
       }
