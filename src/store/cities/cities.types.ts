@@ -4,4 +4,9 @@ interface CitiesSliceState {
   activeCityIndex: number
 }
 
-export type { CitiesSliceState }
+interface cityRenameActionPayload {
+  cityName: string
+  newCityName: string
+}
+
+export type { CitiesSliceState, cityRenameActionPayload }

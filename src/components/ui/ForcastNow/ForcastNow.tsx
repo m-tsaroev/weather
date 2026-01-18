@@ -1,22 +1,105 @@
 import { GlassDiv } from '@/components/decor/GlassDiv'
 import { DetailsCard } from '@/components/ui/DetailsCard'
+import { OverlaedForm } from '@/components/ui/OverlaedForm'
 import { Select } from '@/components/ui/Select'
 import { Spinner } from '@/components/ui/Spinner'
 import { useActions } from '@/hooks/useActions'
+import { useOutside } from '@/hooks/useOutside'
 import { useTypedSelector } from '@/hooks/useTypedSelector'
 import { useWeatherIcon } from '@/hooks/useWeatherIcon'
-import { Ellipsis, Plus } from 'lucide-react'
+import { useLazyGetForecastQuery } from '@/store/api/weatherApi.slice'
+import { Ellipsis } from 'lucide-react'
+import { useState, type ChangeEvent, type FormEvent } from 'react'
 import styles from './ForcastNow.module.css'
 import type { ForcastNowProps } from './ForcastNow.types'
 
 const ForcastNow = (props: ForcastNowProps) => {
   const { city, data, isActive, isLoading } = props
 
-  const { activeCityName } = useTypedSelector((state) => state.cities)
-  const { removeCity } = useActions()
+  const [formFieldValue, setFormFieldValue] = useState<string>('')
+  const [errorMessage, setErrorMessage] = useState<string>('')
+  const [isFormLoading, setIsFormLoading] = useState<boolean>(false)
 
-  const onRemoveBottunClick = () => {
+  const { activeCityName, cities } = useTypedSelector((state) => state.cities)
+  const { removeCity, renameCity } = useActions()
+
+  const [getForecast] = useLazyGetForecastQuery()
+
+  const {
+    ref: renameFormRef,
+    isShow: isRenameShowForm,
+    setIsShow: setIsRenameShowForm,
+  } = useOutside<HTMLFormElement>(false)
+
+  const onFormFiledValueFunction = (event: ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target
+    setFormFieldValue(value)
+  }
+
+  const onRemoveButtonClick = () => {
     removeCity(city)
+  }
+
+  const onRenameFormOpenButtonClick = () => {
+    setIsRenameShowForm(true)
+  }
+
+  const onRenameFormCloseButtonClick = () => {
+    setIsRenameShowForm(false)
+  }
+
+  const onRenameButtonClick = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    setIsFormLoading(true)
+
+    try {
+      const isInTheListOfCities = cities.some((city) => city === formFieldValue)
+
+      if (isInTheListOfCities) {
+        throw new Error('Этот город уже добавлен')
+      }
+
+      await getForecast({ city: formFieldValue }).unwrap()
+
+      renameCity({ cityName: city, newCityName: formFieldValue })
+      setFormFieldValue('')
+      setIsRenameShowForm(false)
+      setErrorMessage('')
+      setIsFormLoading(false)
+    } catch (error) {
+      if (
+        typeof error === 'object' &&
+        error !== null &&
+        'status' in error &&
+        'data' in error
+      ) {
+        const err = error as {
+          status: number
+          data: {
+            error: {
+              code: number
+              message: string
+            }
+          }
+        }
+
+        setErrorMessage(err.data.error.message)
+        setIsFormLoading(false)
+        return
+      }
+
+      if (
+        typeof error === 'object' &&
+        error !== null &&
+        'message' in error &&
+        typeof error.message === 'string'
+      ) {
+        setErrorMessage(error.message)
+        setIsFormLoading(false)
+      }
+    } finally {
+      setIsFormLoading(false)
+    }
   }
 
   const Icon = useWeatherIcon(
@@ -38,28 +121,29 @@ const ForcastNow = (props: ForcastNowProps) => {
       hasCircles={true}
       tabIndex={isActive ? 0 : -1}
     >
+      <OverlaedForm
+        value={formFieldValue}
+        setValueFunction={onFormFiledValueFunction}
+        onSubmitFunction={onRenameButtonClick}
+        onCloseFunction={onRenameFormCloseButtonClick}
+        errorMessage={errorMessage}
+        isLoading={isFormLoading}
+        isShow={isRenameShowForm}
+        formRef={renameFormRef}
+      />
       <Select
         name='forecast-now'
         hasSelection={false}
         value={<Ellipsis />}
-        closeValue={<Plus />}
         options={[
           {
-            name: 'remove',
-            optionFunction: onRemoveBottunClick,
+            name: 'Изменить',
+            optionFunction: onRenameFormOpenButtonClick,
+          },
+          {
+            name: 'Удалить',
+            optionFunction: onRemoveButtonClick,
             mode: 'red',
-          },
-          {
-            name: 'remove',
-            optionFunction: onRemoveBottunClick,
-          },
-          {
-            name: 'remove',
-            optionFunction: onRemoveBottunClick,
-          },
-          {
-            name: 'remove',
-            optionFunction: onRemoveBottunClick,
           },
         ]}
         tabIndex={city === activeCityName ? 0 : -1}

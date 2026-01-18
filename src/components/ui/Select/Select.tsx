@@ -3,13 +3,20 @@ import classNames from 'classnames'
 import { useEffect, useState, type KeyboardEvent } from 'react'
 import styles from './Select.module.css'
 import type { SelectProps } from './Select.types'
+import { Plus } from 'lucide-react'
 
 const Select = (props: SelectProps) => {
   const {
     name,
     // hasSelection = false,
     value,
-    closeValue,
+    closeValue = (
+      <Plus
+        style={{
+          rotate: '45deg',
+        }}
+      />
+    ),
     options,
     tabIndex = 0,
     dropdownSide = 'left',

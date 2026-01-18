@@ -1,3 +1,4 @@
+import { AddCityButton } from '@/components/ui/AddCityButton'
 import { OverlaedForm } from '@/components/ui/OverlaedForm'
 import { Slider } from '@/components/ui/Slider'
 import { WeatherCard } from '@/components/ui/WeatherCard'
@@ -138,39 +139,43 @@ const Weather = () => {
         Weather
       </h1>
       <div className={classNames(styles.body)}>
-        <Slider
-          key={`slider-${swiperKey}`}
-          className='weather-slider'
-          slidesCardsCount={cities.length}
-          sliderParams={{
-            mode: 'custom',
-            slidesPerView: 'auto',
-            hasPagination: true,
-            hasNavigation: true,
-            initialSlideIndex: activeCityIndex,
-            hasSimulateTouch: false,
-            hasAllowTouchMove: false,
-            activeSlideIndex: activeCityIndex,
-            changeActiveSlideFunction: changeActiveCity,
-            onAddButtonFunction: onAddFuction,
-            onNextCLick: onNextButtonClick,
-            onPrevCLick: onPrevButtonClick,
-            onPaginationBulletCLick: onPaginationBulletButtonClick,
-            swiperInstansSetter: setSliderInstans,
-          }}
-        >
-          {cities.map((city) => (
-            <SwiperSlide
-              style={{
-                display: 'flex',
-                justifyContent: 'center   ',
-              }}
-              key={city}
-            >
-              <WeatherCard city={city} isActive={city === activeCityName} />
-            </SwiperSlide>
-          ))}
-        </Slider>
+        {cities.length === 0 ? (
+          <AddCityButton onClickFunction={onAddFuction} side='right' />
+        ) : (
+          <Slider
+            key={`slider-${swiperKey}`}
+            className='weather-slider'
+            slidesCardsCount={cities.length}
+            sliderParams={{
+              mode: 'custom',
+              slidesPerView: 'auto',
+              hasPagination: true,
+              hasNavigation: true,
+              initialSlideIndex: activeCityIndex,
+              hasSimulateTouch: false,
+              hasAllowTouchMove: false,
+              activeSlideIndex: activeCityIndex,
+              changeActiveSlideFunction: changeActiveCity,
+              onAddButtonFunction: onAddFuction,
+              onNextCLick: onNextButtonClick,
+              onPrevCLick: onPrevButtonClick,
+              onPaginationBulletCLick: onPaginationBulletButtonClick,
+              swiperInstansSetter: setSliderInstans,
+            }}
+          >
+            {cities.map((city) => (
+              <SwiperSlide
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center   ',
+                }}
+                key={city}
+              >
+                <WeatherCard city={city} isActive={city === activeCityName} />
+              </SwiperSlide>
+            ))}
+          </Slider>
+        )}
       </div>
       <OverlaedForm
         value={formFieldValue}
