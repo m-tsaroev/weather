@@ -1,6 +1,6 @@
 import { AddCityButton } from '@/components/ui/AddCityButton'
 import { OverlaedForm } from '@/components/ui/OverlaedForm'
-import { Slider } from '@/components/ui/Slider'
+import { Select } from '@/components/ui/Select'
 import { WeatherCard } from '@/components/ui/WeatherCard'
 import { useActions } from '@/hooks/useActions'
 import { useOutside } from '@/hooks/useOutside'
@@ -15,8 +15,8 @@ import {
   type FormEvent,
 } from 'react'
 import type { SwiperClass } from 'swiper/react'
-import { SwiperSlide } from 'swiper/react'
 import styles from './Weather.module.css'
+import { Building2 } from 'lucide-react'
 
 const Weather = () => {
   const titleId = 'weather'
@@ -139,42 +139,74 @@ const Weather = () => {
         Weather
       </h1>
       <div className={classNames(styles.body)}>
+        <Select
+          name='weather-card'
+          hasSelection={false}
+          value={<Building2 />}
+          options={[
+            ...cities.map((city, index) => {
+              return {
+                name: city,
+                optionFunction: () => {
+                  changeActiveCity(index)
+                },
+              }
+            }),
+            {
+              name: '+',
+              optionFunction: onAddFuction,
+              mode: 'border'
+            },
+          ]}
+          tabIndex={0}
+          className={styles.select}
+        />
         {cities.length === 0 ? (
           <AddCityButton onClickFunction={onAddFuction} side='right' />
         ) : (
-          <Slider
-            key={`slider-${swiperKey}`}
-            className='weather-slider'
-            slidesCardsCount={cities.length}
-            sliderParams={{
-              mode: 'custom',
-              slidesPerView: 'auto',
-              hasPagination: true,
-              hasNavigation: true,
-              initialSlideIndex: activeCityIndex,
-              hasSimulateTouch: false,
-              hasAllowTouchMove: false,
-              activeSlideIndex: activeCityIndex,
-              changeActiveSlideFunction: changeActiveCity,
-              onAddButtonFunction: onAddFuction,
-              onNextCLick: onNextButtonClick,
-              onPrevCLick: onPrevButtonClick,
-              onPaginationBulletCLick: onPaginationBulletButtonClick,
-              swiperInstansSetter: setSliderInstans,
-            }}
-          >
-            {cities.map((city) => (
-              <SwiperSlide
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center   ',
-                }}
+          // <Slider
+          //   key={`slider-${swiperKey}`}
+          //   className='weather-slider'
+          //   slidesCardsCount={cities.length}
+          //   sliderParams={{
+          //     mode: 'custom',
+          //     slidesPerView: 'auto',
+          //     hasPagination: true,
+          //     hasNavigation: true,
+          //     initialSlideIndex: activeCityIndex,
+          //     hasSimulateTouch: false,
+          //     hasAllowTouchMove: false,
+          //     activeSlideIndex: activeCityIndex,
+          //     changeActiveSlideFunction: changeActiveCity,
+          //     onAddButtonFunction: onAddFuction,
+          //     onNextCLick: onNextButtonClick,
+          //     onPrevCLick: onPrevButtonClick,
+          //     onPaginationBulletCLick: onPaginationBulletButtonClick,
+          //     swiperInstansSetter: setSliderInstans,
+          //   }}
+          // >
+          //   {cities.map((city) => (
+          //     <SwiperSlide
+          //       style={{
+          //         display: 'flex',
+          //         justifyContent: 'center   ',
+          //       }}
+          //       key={city}
+          //     >
+          //       <WeatherCard city={city} isActive={city === activeCityName} />
+          //     </SwiperSlide>
+          //   ))}
+          // </Slider>
+
+          cities.map((city) =>
+            city === activeCityName ? (
+              <WeatherCard
+                city={city}
+                isActive={city === activeCityName}
                 key={city}
-              >
-                <WeatherCard city={city} isActive={city === activeCityName} />
-              </SwiperSlide>
-            ))}
-          </Slider>
+              />
+            ) : null,
+          )
         )}
       </div>
       <OverlaedForm

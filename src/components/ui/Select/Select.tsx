@@ -1,9 +1,9 @@
 import { useOutside } from '@/hooks/useOutside'
 import classNames from 'classnames'
+import { Plus } from 'lucide-react'
 import { useEffect, useState, type KeyboardEvent } from 'react'
 import styles from './Select.module.css'
 import type { SelectProps } from './Select.types'
-import { Plus } from 'lucide-react'
 
 const Select = (props: SelectProps) => {
   const {
@@ -96,6 +96,10 @@ const Select = (props: SelectProps) => {
     event.stopPropagation()
   }
 
+  const onOptionClick = () => {
+    setIsDropDownShow(false)
+  }
+
   useEffect(() => {
     const currentOptionElements =
       dropdownRef.current?.querySelectorAll('button')
@@ -141,18 +145,24 @@ const Select = (props: SelectProps) => {
         onClick={onDropDownClick}
       >
         {options.map((option, index) => (
-          <button
-            className={classNames(styles.option, {
-              [styles.red]: option.mode === 'red',
-            })}
-            id={`${name}-option-${index}`}
-            role='option'
-            aria-selected={option?.isSelected}
-            onClick={option.optionFunction}
-            key={index}
-          >
-            {option.name}
-          </button>
+          <div style={{
+            width: '100%'
+          }} onClick={onOptionClick}>
+            <button
+              className={classNames(styles.option, {
+                [styles.red]: option.mode === 'red',
+
+                [styles.border]: option.mode === 'border',
+              })}
+              id={`${name}-option-${index}`}
+              role='option'
+              aria-selected={option?.isSelected}
+              onClick={option.optionFunction}
+              key={index}
+            >
+              {option.name}
+            </button>
+          </div>
         ))}
       </div>
     </div>

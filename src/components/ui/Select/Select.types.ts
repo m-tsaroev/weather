@@ -5,7 +5,7 @@ interface Option {
   optionFunction?: () => void
   isCUrrent?: boolean
   isSelected?: boolean
-  mode?: 'red'
+  mode?: 'red' | 'border'
 }
 
 interface SelectProps {
