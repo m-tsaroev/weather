@@ -11,6 +11,7 @@ interface Option {
 interface SelectProps {
   name: string
   hasSelection: boolean
+  hasHover?: boolean
   value?: string | ReactNode
   closeValue?: string | ReactNode
   options: Option[]

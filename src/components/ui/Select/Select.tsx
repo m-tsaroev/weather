@@ -9,6 +9,7 @@ const Select = (props: SelectProps) => {
   const {
     name,
     // hasSelection = false,
+    hasHover = true,
     value,
     closeValue = (
       <Plus
@@ -96,10 +97,6 @@ const Select = (props: SelectProps) => {
     event.stopPropagation()
   }
 
-  const onOptionClick = () => {
-    setIsDropDownShow(false)
-  }
-
   useEffect(() => {
     const currentOptionElements =
       dropdownRef.current?.querySelectorAll('button')
@@ -119,6 +116,7 @@ const Select = (props: SelectProps) => {
         className={classNames(
           styles.selectButton,
           isDropDownShow && styles.isOpen,
+          hasHover && styles.hover,
         )}
         role='combobox'
         aria-expanded={isDropDownShow}
@@ -145,24 +143,22 @@ const Select = (props: SelectProps) => {
         onClick={onDropDownClick}
       >
         {options.map((option, index) => (
-          <div style={{
-            width: '100%'
-          }} onClick={onOptionClick}>
-            <button
-              className={classNames(styles.option, {
-                [styles.red]: option.mode === 'red',
-
-                [styles.border]: option.mode === 'border',
-              })}
-              id={`${name}-option-${index}`}
-              role='option'
-              aria-selected={option?.isSelected}
-              onClick={option.optionFunction}
-              key={index}
-            >
-              {option.name}
-            </button>
-          </div>
+          <button
+            className={classNames(styles.option, {
+              [styles.red]: option.mode === 'red',
+              [styles.border]: option.mode === 'border',
+            })}
+            id={`${name}-option-${index}`}
+            role='option'
+            aria-selected={option?.isSelected}
+            onClick={() => {
+              option.optionFunction?.()
+              setIsDropDownShow(false) 
+            }}
+            key={index}
+          >
+            {option.name}
+          </button>
         ))}
       </div>
     </div>

@@ -1,5 +1,6 @@
 .select {
   cursor: pointer;
+  position: relative;
 }
 
 .selectButton {
@@ -32,7 +33,6 @@
   font-family: var(--font-family-accent);
   border-radius: 7px;
   transition-duration: var(--transition-duration);
-  width: 100%;
 
   &:hover {
     background-color: var(--color-light-op-03);
@@ -58,9 +58,8 @@
 .dropdown {
   display: flex;
   flex-direction: column;
-  align-items: center;
   position: absolute;
-  top: 100%;
+  top: calc(100% + 5px);
   scale: 0;
   opacity: 0;
   transition-duration: var(--transition-duration);
