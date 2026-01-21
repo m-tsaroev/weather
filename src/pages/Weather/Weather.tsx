@@ -2,11 +2,13 @@ import { AddCityButton } from '@/components/ui/AddCityButton'
 import { OverlaedForm } from '@/components/ui/OverlaedForm'
 import { Select } from '@/components/ui/Select'
 import { WeatherCard } from '@/components/ui/WeatherCard'
+import { WeatherDisplayTypeBLock } from '@/components/ui/WeatherDisplayTypeBLock'
 import { useActions } from '@/hooks/useActions'
 import { useOutside } from '@/hooks/useOutside'
 import { useTypedSelector } from '@/hooks/useTypedSelector'
 import { useLazyGetForecastQuery } from '@/store/api/weatherApi.slice'
 import classNames from 'classnames'
+import { Building2 } from 'lucide-react'
 import {
   useEffect,
   useRef,
@@ -16,7 +18,6 @@ import {
 } from 'react'
 import type { SwiperClass } from 'swiper/react'
 import styles from './Weather.module.css'
-import { Building2 } from 'lucide-react'
 
 const Weather = () => {
   const titleId = 'weather'
@@ -24,6 +25,10 @@ const Weather = () => {
   const { cities, activeCityIndex, activeCityName } = useTypedSelector(
     (state) => state.cities,
   )
+  const { isShowWeatherDisplayTypeModal } = useTypedSelector(
+    (state) => state.modalWindows,
+  )
+
   const { changeActiveCity, addCity } = useActions()
   const [getForecast] = useLazyGetForecastQuery()
 
@@ -135,6 +140,7 @@ const Weather = () => {
 
   return (
     <section className='section' aria-labelledby={titleId}>
+      <WeatherDisplayTypeBLock />
       <h1 className='visually-hidden' id={titleId}>
         Weather
       </h1>
@@ -155,7 +161,7 @@ const Weather = () => {
             {
               name: '+',
               optionFunction: onAddFuction,
-              mode: 'border'
+              mode: 'border',
             },
           ]}
           tabIndex={0}

@@ -11,17 +11,25 @@ interface TypeOut<T extends HTMLElement> {
   ref: RefObject<T | null>
   isShow: boolean
   setIsShow: Dispatch<SetStateAction<boolean>>
+  isClickOutside: boolean
 }
 
 const useOutside = <RefElementType extends HTMLElement>(
   initialIsVisible: boolean,
 ): TypeOut<RefElementType> => {
   const [isShow, setIsShow] = useState<boolean>(initialIsVisible)
+  const [isClickOutside, setIsClickOutside] = useState<boolean>(false)
   const ref = useRef<RefElementType | null>(null)
 
   const handleClickOutside = (event: Event) => {
     if (ref.current && !ref.current.contains(event.target as HTMLElement)) {
       setIsShow(false)
+
+      setIsClickOutside(true)
+
+      setTimeout(() => {
+        setIsClickOutside(false)
+      }, 500);
     }
   }
 
@@ -33,7 +41,7 @@ const useOutside = <RefElementType extends HTMLElement>(
     }
   }, [])
 
-  return { ref, isShow, setIsShow }
+  return { ref, isShow, setIsShow, isClickOutside }
 }
 
 export { useOutside }

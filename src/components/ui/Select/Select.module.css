@@ -26,6 +26,11 @@
 }
 
 .option {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+  white-space: nowrap;
   background: none;
   border: 1px solid transparent;
   font-size: 14px;

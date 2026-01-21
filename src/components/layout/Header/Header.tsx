@@ -14,14 +14,7 @@ const Header = () => {
 
   const { hasValidApiKey } = useTypedSelector((state) => state.apiKey)
 
-  const { isShowWeatherDisplayTypeModal } = useTypedSelector(
-    (state) => state.modalWindows,
-  )
   const { activateModal } = useActions()
-
-  useEffect(() => {
-    console.log(isShowWeatherDisplayTypeModal)
-  }, [isShowWeatherDisplayTypeModal])
 
   return (
     <header className={styles.header}>
@@ -41,7 +34,7 @@ const Header = () => {
                     },
                   },
                   {
-                    name: 'Lala',
+                    name: 'Weather display type',
                     optionFunction: () => {
                       activateModal('isShowWeatherDisplayTypeModal')
                     },
