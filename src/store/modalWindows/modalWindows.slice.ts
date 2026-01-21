@@ -1,10 +1,13 @@
 import type {
   ActivateModalActionPayload,
+  DisactivateModalActionPayload,
   SliceIninitialState,
 } from '@/store/modalWindows/modalWindows.types'
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 
 const initialState: SliceIninitialState = {
+  isShowAddWeatherFormModal: false,
+  isShowRenameWeatherFormModal: false,
   isShowWeatherDisplayTypeModal: false,
 }
 
@@ -21,7 +24,7 @@ const modalWindowsSlice = createSlice({
 
     disactivateModal: (
       state,
-      action: PayloadAction<ActivateModalActionPayload>,
+      action: PayloadAction<DisactivateModalActionPayload>,
     ) => {
       state[action.payload] = false
     },

@@ -5,7 +5,6 @@ import { Slider } from '@/components/ui/Slider'
 import { WeatherCard } from '@/components/ui/WeatherCard'
 import { WeatherDisplayTypeBLock } from '@/components/ui/WeatherDisplayTypeBLock'
 import { useActions } from '@/hooks/useActions'
-import { useOutside } from '@/hooks/useOutside'
 import { useTypedSelector } from '@/hooks/useTypedSelector'
 import { useLazyGetForecastQuery } from '@/store/api/weatherApi.slice'
 import classNames from 'classnames'
@@ -29,7 +28,8 @@ const Weather = () => {
   const { isSelectDisplayType, isSliderDisplayType, isTabsDisplayType } =
     useTypedSelector((state) => state.weatherDisplayTypes)
 
-  const { changeActiveCity, addCity } = useActions()
+  const { changeActiveCity, addCity, activateModal, disactivateModal } =
+    useActions()
   const [getForecast] = useLazyGetForecastQuery()
 
   const [formFieldValue, setFormFieldValue] = useState<string>('')
@@ -37,12 +37,6 @@ const Weather = () => {
   const [isFormLoading, setIsFormLoading] = useState<boolean>(false)
 
   const [sliderInstans, setSliderInstans] = useState<SwiperClass | null>(null)
-
-  const {
-    ref: formRef,
-    isShow: isShowForm,
-    setIsShow: setIsShowForm,
-  } = useOutside<HTMLFormElement>(false)
 
   useEffect(() => {
     sliderInstans?.slideTo(activeCityIndex)
@@ -66,7 +60,7 @@ const Weather = () => {
 
       addCity(formFieldValue)
       setFormFieldValue('')
-      setIsShowForm(false)
+      disactivateModal('isShowAddWeatherFormModal')
       setErrorMessage('')
       setIsFormLoading(false)
       changeActiveCity(cities.length)
@@ -107,13 +101,7 @@ const Weather = () => {
   }
 
   const onAddFuction = () => {
-    setIsShowForm(true)
-  }
-
-  const onCloseFormButtonClick = () => {
-    setFormFieldValue('')
-    setIsShowForm(false)
-    setErrorMessage('')
+    activateModal('isShowAddWeatherFormModal')
   }
 
   const onPrevButtonClick = () => {
@@ -224,11 +212,9 @@ const Weather = () => {
         value={formFieldValue}
         setValueFunction={onFormFieldChange}
         onSubmitFunction={onFormSubmitFunction}
-        onCloseFunction={onCloseFormButtonClick}
         errorMessage={errorMessage}
         isLoading={isFormLoading}
-        isShow={isShowForm}
-        formRef={formRef}
+        overlayModalName='AddForm'
       />
     </section>
   )

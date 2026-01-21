@@ -1,15 +1,13 @@
-import type { ChangeEvent, FormEvent, RefObject } from 'react'
+import type { ChangeEvent, FormEvent } from 'react'
 
 interface OverlaedFormProps {
   value: string
   setValueFunction: (event: ChangeEvent<HTMLInputElement>) => void
   onSubmitFunction: (event: FormEvent<HTMLFormElement>) => void
-  onCloseFunction: () => void
   errorMessage: string
   isLoading: boolean
-  isShow: boolean
-  formRef: RefObject<HTMLFormElement | null>
   className?: string
+  overlayModalName: 'AddForm' | 'RenameForm' | 'WeatherDisplayTypes'
 }
 
 export type { OverlaedFormProps }

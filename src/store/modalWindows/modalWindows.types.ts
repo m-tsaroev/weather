@@ -1,9 +1,21 @@
 interface SliceIninitialState {
+  isShowAddWeatherFormModal: boolean
+  isShowRenameWeatherFormModal: boolean
   isShowWeatherDisplayTypeModal: boolean
 }
 
-type ActivateModalActionPayload = 'isShowWeatherDisplayTypeModal'
+type ActivateModalActionPayload =
+  | 'isShowAddWeatherFormModal'
+  | 'isShowRenameWeatherFormModal'
+  | 'isShowWeatherDisplayTypeModal'
 
-type DisactivateModalActionPayload = 'isShowWeatherDisplayTypeModal'
+type DisactivateModalActionPayload =
+  | 'isShowAddWeatherFormModal'
+  | 'isShowRenameWeatherFormModal'
+  | 'isShowWeatherDisplayTypeModal'
 
-export type {SliceIninitialState, ActivateModalActionPayload, DisactivateModalActionPayload}
+export type {
+  ActivateModalActionPayload,
+  DisactivateModalActionPayload,
+  SliceIninitialState,
+}

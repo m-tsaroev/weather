@@ -64,7 +64,7 @@ const Setup = () => {
 
   return (
     <section className='section' aria-labelledby={titleId}>
-      <GlassDiv hasCircles={true} className={styles.body}>
+      <GlassDiv hasCircles className={styles.body}>
         <h1 className={styles.title} id={titleId}>
           Настройка
         </h1>

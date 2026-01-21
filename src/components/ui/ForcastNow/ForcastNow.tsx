@@ -4,7 +4,6 @@ import { OverlaedForm } from '@/components/ui/OverlaedForm'
 import { Select } from '@/components/ui/Select'
 import { Spinner } from '@/components/ui/Spinner'
 import { useActions } from '@/hooks/useActions'
-import { useOutside } from '@/hooks/useOutside'
 import { useTypedSelector } from '@/hooks/useTypedSelector'
 import { useWeatherIcon } from '@/hooks/useWeatherIcon'
 import { useLazyGetForecastQuery } from '@/store/api/weatherApi.slice'
@@ -21,15 +20,10 @@ const ForcastNow = (props: ForcastNowProps) => {
   const [isFormLoading, setIsFormLoading] = useState<boolean>(false)
 
   const { activeCityName, cities } = useTypedSelector((state) => state.cities)
-  const { removeCity, renameCity } = useActions()
+  const { removeCity, renameCity, activateModal, disactivateModal } =
+    useActions()
 
   const [getForecast] = useLazyGetForecastQuery()
-
-  const {
-    ref: renameFormRef,
-    isShow: isRenameShowForm,
-    setIsShow: setIsRenameShowForm,
-  } = useOutside<HTMLFormElement>(false)
 
   const onFormFiledValueFunction = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target
@@ -41,11 +35,7 @@ const ForcastNow = (props: ForcastNowProps) => {
   }
 
   const onRenameFormOpenButtonClick = () => {
-    setIsRenameShowForm(true)
-  }
-
-  const onRenameFormCloseButtonClick = () => {
-    setIsRenameShowForm(false)
+    activateModal('isShowRenameWeatherFormModal')
   }
 
   const onRenameButtonClick = async (event: FormEvent<HTMLFormElement>) => {
@@ -63,7 +53,7 @@ const ForcastNow = (props: ForcastNowProps) => {
 
       renameCity({ cityName: city, newCityName: formFieldValue })
       setFormFieldValue('')
-      setIsRenameShowForm(false)
+      disactivateModal('isShowRenameWeatherFormModal')
       setErrorMessage('')
       setIsFormLoading(false)
     } catch (error) {
@@ -125,11 +115,9 @@ const ForcastNow = (props: ForcastNowProps) => {
         value={formFieldValue}
         setValueFunction={onFormFiledValueFunction}
         onSubmitFunction={onRenameButtonClick}
-        onCloseFunction={onRenameFormCloseButtonClick}
         errorMessage={errorMessage}
         isLoading={isFormLoading}
-        isShow={isRenameShowForm}
-        formRef={renameFormRef}
+        overlayModalName='RenameForm'
       />
       <Select
         name='forecast-now'

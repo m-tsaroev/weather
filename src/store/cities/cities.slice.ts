@@ -3,15 +3,21 @@ import type {
   cityRenameActionPayload,
 } from '@/store/cities/cities.types'
 import { citiesStorageActions } from '@/utils/citiesStorageActions/citiesStorageActions'
+import { LocalStorageService } from '@/utils/LocalStorageService'
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 
 const initialState: CitiesSliceState = {
-  ...citiesStorageActions('get'),
+  cities: ['London', 'Nazran'],
+  activeCityName: 'London',
+  activeCityIndex: 0,
 }
+
+const { state: storageState, setState } =
+  new LocalStorageService<CitiesSliceState>('cities', initialState)
 
 const citiesSlice = createSlice({
   name: 'cities',
-  initialState,
+  initialState: storageState,
   reducers: {
     addCity: (state, action: PayloadAction<string>) => {
       const isAlreadyThere = state.cities.some(
@@ -21,7 +27,7 @@ const citiesSlice = createSlice({
       if (isAlreadyThere) return
 
       state.cities.push(action.payload)
-      citiesStorageActions('set', state)
+      setState(state)
     },
 
     removeCity: (state, action: PayloadAction<string>) => {
@@ -55,11 +61,11 @@ const citiesSlice = createSlice({
       const { cityName, newCityName } = action.payload
 
       state.cities = state.cities.map((city) =>
-        city === cityName ? newCityName : city
+        city === cityName ? newCityName : city,
       )
       state.activeCityName = newCityName
 
-      citiesStorageActions('set', state)
+      setState(state)
     },
 
     changeActiveCity: (state, action: PayloadAction<number>) => {
@@ -67,8 +73,8 @@ const citiesSlice = createSlice({
 
       state.activeCityIndex = action.payload
       state.activeCityName = state.cities[state.activeCityIndex]
-      
-      citiesStorageActions('set', state)
+
+      setState(state)
     },
   },
 })

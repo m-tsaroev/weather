@@ -5,7 +5,7 @@ interface GlassDivProps {
   className?: string
   hasCircles?: boolean
   tabIndex?: number
-  ref: RefObject<HTMLDivElement | null>
+  ref?: RefObject<HTMLDivElement | null>
 }
 
 export type { GlassDivProps }
