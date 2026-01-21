@@ -12,14 +12,14 @@ const WeatherDisplayTypeBLock = () => {
   const {
     ref: blockRef,
     isShow: isShowBlock,
-    setIsShow: setisShowBlock,
+    setIsShow: setIsShowBlock,
     isClickOutside,
   } = useOutside<HTMLDivElement>(false)
 
   const { isShowWeatherDisplayTypeModal } = useTypedSelector(
     (state) => state.modalWindows,
   )
-  const { disactivateModal } = useActions()
+  const { disactivateModal, activateDisplayType } = useActions()
 
   const onCloseFunction = () => {
     disactivateModal('isShowWeatherDisplayTypeModal')
@@ -32,8 +32,26 @@ const WeatherDisplayTypeBLock = () => {
   }, [isClickOutside, disactivateModal])
 
   useEffect(() => {
-    setisShowBlock(isShowWeatherDisplayTypeModal)
-  }, [setisShowBlock, isShowWeatherDisplayTypeModal])
+    setIsShowBlock(isShowWeatherDisplayTypeModal)
+  }, [setIsShowBlock, isShowWeatherDisplayTypeModal])
+
+  const onSliderChooseButtonClick = () => {
+    activateDisplayType('isSliderDisplayType')
+    setIsShowBlock(false)
+    disactivateModal('isShowWeatherDisplayTypeModal')
+  }
+
+  const onSelectChooseButtonClick = () => {
+    activateDisplayType('isSelectDisplayType')
+    setIsShowBlock(false)
+    disactivateModal('isShowWeatherDisplayTypeModal')
+  }
+
+  const onTabsChooseButtonClick = () => {
+    activateDisplayType('isTabsDisplayType')
+    setIsShowBlock(false)
+    disactivateModal('isShowWeatherDisplayTypeModal')
+  }
 
   return (
     <AnimatePresence>
@@ -61,9 +79,24 @@ const WeatherDisplayTypeBLock = () => {
             >
               <Plus />
             </button>
-            <Button label='Select' type='button' className={styles.button} />
-            <Button label='Slider' type='button' className={styles.button} />
-            <Button label='Tabs' type='button' className={styles.button} />
+            <Button
+              label='Select'
+              onClickFunction={onSelectChooseButtonClick}
+              type='button'
+              className={styles.button}
+            />
+            <Button
+              label='Slider'
+              onClickFunction={onSliderChooseButtonClick}
+              type='button'
+              className={styles.button}
+            />
+            <Button
+              label='Tabs'
+              onClickFunction={onTabsChooseButtonClick}
+              type='button'
+              className={styles.button}
+            />
           </GlassDiv>
         </motion.div>
       )}

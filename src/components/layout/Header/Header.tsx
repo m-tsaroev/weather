@@ -4,7 +4,6 @@ import { PATHS } from '@/config/paths'
 import { useActions } from '@/hooks/useActions'
 import { useTypedSelector } from '@/hooks/useTypedSelector'
 import classNames from 'classnames'
-import { useEffect } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import styles from './Header.module.css'
 

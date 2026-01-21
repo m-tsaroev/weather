@@ -1,6 +1,7 @@
 import { AddCityButton } from '@/components/ui/AddCityButton'
 import { OverlaedForm } from '@/components/ui/OverlaedForm'
 import { Select } from '@/components/ui/Select'
+import { Slider } from '@/components/ui/Slider'
 import { WeatherCard } from '@/components/ui/WeatherCard'
 import { WeatherDisplayTypeBLock } from '@/components/ui/WeatherDisplayTypeBLock'
 import { useActions } from '@/hooks/useActions'
@@ -16,7 +17,7 @@ import {
   type ChangeEvent,
   type FormEvent,
 } from 'react'
-import type { SwiperClass } from 'swiper/react'
+import { SwiperSlide, type SwiperClass } from 'swiper/react'
 import styles from './Weather.module.css'
 
 const Weather = () => {
@@ -25,9 +26,8 @@ const Weather = () => {
   const { cities, activeCityIndex, activeCityName } = useTypedSelector(
     (state) => state.cities,
   )
-  const { isShowWeatherDisplayTypeModal } = useTypedSelector(
-    (state) => state.modalWindows,
-  )
+  const { isSelectDisplayType, isSliderDisplayType, isTabsDisplayType } =
+    useTypedSelector((state) => state.weatherDisplayTypes)
 
   const { changeActiveCity, addCity } = useActions()
   const [getForecast] = useLazyGetForecastQuery()
@@ -145,74 +145,79 @@ const Weather = () => {
         Weather
       </h1>
       <div className={classNames(styles.body)}>
-        <Select
-          name='weather-card'
-          hasSelection={false}
-          value={<Building2 />}
-          options={[
-            ...cities.map((city, index) => {
-              return {
-                name: city,
-                optionFunction: () => {
-                  changeActiveCity(index)
-                },
-              }
-            }),
-            {
-              name: '+',
-              optionFunction: onAddFuction,
-              mode: 'border',
-            },
-          ]}
-          tabIndex={0}
-          className={styles.select}
-        />
+        {isSelectDisplayType && (
+          <Select
+            name='weather-card'
+            hasSelection={false}
+            value={<Building2 />}
+            options={[
+              ...cities.map((city, index) => {
+                return {
+                  name: city,
+                  optionFunction: () => {
+                    changeActiveCity(index)
+                  },
+                }
+              }),
+              {
+                name: '+',
+                optionFunction: onAddFuction,
+                mode: 'border',
+              },
+            ]}
+            tabIndex={0}
+            className={styles.select}
+          />
+        )}
         {cities.length === 0 ? (
           <AddCityButton onClickFunction={onAddFuction} side='right' />
-        ) : (
-          // <Slider
-          //   key={`slider-${swiperKey}`}
-          //   className='weather-slider'
-          //   slidesCardsCount={cities.length}
-          //   sliderParams={{
-          //     mode: 'custom',
-          //     slidesPerView: 'auto',
-          //     hasPagination: true,
-          //     hasNavigation: true,
-          //     initialSlideIndex: activeCityIndex,
-          //     hasSimulateTouch: false,
-          //     hasAllowTouchMove: false,
-          //     activeSlideIndex: activeCityIndex,
-          //     changeActiveSlideFunction: changeActiveCity,
-          //     onAddButtonFunction: onAddFuction,
-          //     onNextCLick: onNextButtonClick,
-          //     onPrevCLick: onPrevButtonClick,
-          //     onPaginationBulletCLick: onPaginationBulletButtonClick,
-          //     swiperInstansSetter: setSliderInstans,
-          //   }}
-          // >
-          //   {cities.map((city) => (
-          //     <SwiperSlide
-          //       style={{
-          //         display: 'flex',
-          //         justifyContent: 'center   ',
-          //       }}
-          //       key={city}
-          //     >
-          //       <WeatherCard city={city} isActive={city === activeCityName} />
-          //     </SwiperSlide>
-          //   ))}
-          // </Slider>
-
-          cities.map((city) =>
-            city === activeCityName ? (
-              <WeatherCard
-                city={city}
-                isActive={city === activeCityName}
+        ) : isSliderDisplayType ? (
+          <Slider
+            key={`slider-${swiperKey}`}
+            className='weather-slider'
+            slidesCardsCount={cities.length}
+            sliderParams={{
+              mode: 'custom',
+              slidesPerView: 'auto',
+              hasPagination: true,
+              hasNavigation: true,
+              initialSlideIndex: activeCityIndex,
+              hasSimulateTouch: false,
+              hasAllowTouchMove: false,
+              activeSlideIndex: activeCityIndex,
+              changeActiveSlideFunction: changeActiveCity,
+              onAddButtonFunction: onAddFuction,
+              onNextCLick: onNextButtonClick,
+              onPrevCLick: onPrevButtonClick,
+              onPaginationBulletCLick: onPaginationBulletButtonClick,
+              swiperInstansSetter: setSliderInstans,
+            }}
+          >
+            {cities.map((city) => (
+              <SwiperSlide
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center   ',
+                }}
                 key={city}
-              />
-            ) : null,
+              >
+                <WeatherCard city={city} isActive={city === activeCityName} />
+              </SwiperSlide>
+            ))}
+          </Slider>
+        ) : isSelectDisplayType ? (
+          cities.map(
+            (city) =>
+              city === activeCityName && (
+                <WeatherCard
+                  city={city}
+                  isActive={city === activeCityName}
+                  key={city}
+                />
+              ),
           )
+        ) : (
+          isTabsDisplayType && <h1>СДЕЛАЙ ТАБЫ!!!</h1>
         )}
       </div>
       <OverlaedForm
