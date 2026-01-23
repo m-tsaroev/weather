@@ -60,3 +60,16 @@
   height: 100%;
   width: 70px;
 }
+
+.forTabs {
+  position: static;
+  height: auto;
+  width: auto;
+  padding: 8px;
+  border-radius: 8px;
+
+  svg {
+    width: 24px;
+    height: 24px;
+  }
+}

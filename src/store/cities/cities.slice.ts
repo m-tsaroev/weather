@@ -2,7 +2,6 @@ import type {
   CitiesSliceState,
   cityRenameActionPayload,
 } from '@/store/cities/cities.types'
-import { citiesStorageActions } from '@/utils/citiesStorageActions/citiesStorageActions'
 import { LocalStorageService } from '@/utils/LocalStorageService'
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 
@@ -23,8 +22,9 @@ const citiesSlice = createSlice({
       const isAlreadyThere = state.cities.some(
         (city) => city === action.payload,
       )
+      const isCitiesOverThenTen = state.cities.length === 10
 
-      if (isAlreadyThere) return
+      if (isAlreadyThere || isCitiesOverThenTen) return
 
       state.cities.push(action.payload)
       setState(state)
@@ -46,15 +46,14 @@ const citiesSlice = createSlice({
       } else if (isRemovingActiveCity) {
         if (removeIndex >= state.cities.length) {
           state.activeCityIndex = state.cities.length - 1
-        } else {
-          state.activeCityIndex = Math.min(removeIndex, state.cities.length - 1)
+          console.log(15)
         }
         state.activeCityName = state.cities[state.activeCityIndex]
       } else if (removeIndex < state.activeCityIndex) {
         state.activeCityIndex -= 1
       }
 
-      citiesStorageActions('set', state)
+      setState(state)
     },
 
     renameCity: (state, action: PayloadAction<cityRenameActionPayload>) => {

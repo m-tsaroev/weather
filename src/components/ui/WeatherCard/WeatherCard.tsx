@@ -2,6 +2,7 @@ import { ForecastDay } from '@/components/ui/ForcastDay'
 import { ForcastNow } from '@/components/ui/ForcastNow'
 import { useTypedSelector } from '@/hooks/useTypedSelector'
 import { useLazyGetForecastQuery } from '@/store/api/weatherApi.slice'
+import { AnimatePresence, motion } from 'motion/react'
 import { useEffect, useState } from 'react'
 import styles from './WeatherCard.module.css'
 import type { WeatherCardProps } from './WeatherCard.types'
@@ -28,15 +29,31 @@ const WeatherCard = (props: WeatherCardProps) => {
   }, [activeCityName, city, hasLoaded, getForecastQuery])
 
   return (
-    <div className={styles.weatherCard}>
-      <ForcastNow
-        city={city}
-        data={data}
-        isActive={isActive}
-        isLoading={isLoading}
-      />
-      <ForecastDay data={data} isActive={isActive} isLoading={isLoading} />
-    </div>
+    <AnimatePresence>
+      <motion.div
+        initial={{
+          opacity: 0,
+        }}
+        animate={{
+          opacity: 1,
+        }}
+        exit={{
+          opacity: 0,
+        }}
+        transition={{
+          duration: 0.6,
+        }}
+        className={styles.weatherCard}
+      >
+        <ForcastNow
+          city={city}
+          data={data}
+          isActive={isActive}
+          isLoading={isLoading}
+        />
+        <ForecastDay data={data} isActive={isActive} isLoading={isLoading} />
+      </motion.div>
+    </AnimatePresence>
   )
 }
 

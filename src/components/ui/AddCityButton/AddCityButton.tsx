@@ -5,11 +5,13 @@ import styles from './AddCityButton.module.css'
 import type { AddCityButtonProps } from './AddCityButton.types'
 
 const AddCityButton = (props: AddCityButtonProps) => {
-  const { onClickFunction, side = 'left' } = props
+  const { onClickFunction, className, side = 'left', mode } = props
 
   return (
     <motion.button
-      className={classNames(styles.button, styles[side])}
+      className={classNames(className, styles.button, styles[side], {
+        [styles.forTabs]: mode === 'for-tabs',
+      })}
       onClick={onClickFunction}
       initial={{
         translateX: side === 'left' ? -100 : 100,

@@ -1,5 +1,6 @@
 .weatherCard {
   display: grid;
   row-gap: 20px;
-  max-width: 660px;
+  width: 660px;
+  height: 680px;
 }

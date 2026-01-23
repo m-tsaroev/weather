@@ -2,6 +2,7 @@ import { AddCityButton } from '@/components/ui/AddCityButton'
 import { OverlaedForm } from '@/components/ui/OverlaedForm'
 import { Select } from '@/components/ui/Select'
 import { Slider } from '@/components/ui/Slider'
+import { Tabs } from '@/components/ui/Tabs'
 import { WeatherCard } from '@/components/ui/WeatherCard'
 import { WeatherDisplayTypeBLock } from '@/components/ui/WeatherDisplayTypeBLock'
 import { useActions } from '@/hooks/useActions'
@@ -129,6 +130,14 @@ const Weather = () => {
   return (
     <section className='section' aria-labelledby={titleId}>
       <WeatherDisplayTypeBLock />
+      <OverlaedForm
+        value={formFieldValue}
+        setValueFunction={onFormFieldChange}
+        onSubmitFunction={onFormSubmitFunction}
+        errorMessage={errorMessage}
+        isLoading={isFormLoading}
+        overlayModalName='AddForm'
+      />
       <h1 className='visually-hidden' id={titleId}>
         Weather
       </h1>
@@ -205,17 +214,9 @@ const Weather = () => {
               ),
           )
         ) : (
-          isTabsDisplayType && <h1>СДЕЛАЙ ТАБЫ!!!</h1>
+          isTabsDisplayType && <Tabs items={cities} />
         )}
       </div>
-      <OverlaedForm
-        value={formFieldValue}
-        setValueFunction={onFormFieldChange}
-        onSubmitFunction={onFormSubmitFunction}
-        errorMessage={errorMessage}
-        isLoading={isFormLoading}
-        overlayModalName='AddForm'
-      />
     </section>
   )
 }

@@ -1,0 +1,32 @@
+.tab {
+
+  flex: 0 0 auto; /* ⚠️ Важно! Не дает табам сжиматься */
+  min-width: max-content; /* Минимальная ширина по содержимому */
+
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 8px;
+  opacity: 0.5;
+
+  transition-duration: var(--transition-duration);
+
+  &:focus-visible {
+    outline: none;
+    outline-offset: 0;
+  }
+
+  &:hover {
+    border-color: var(--color-light);
+    opacity: 1;
+  }
+}
+
+.isActive {
+  opacity: 1;
+  pointer-events: none;
+  user-select: none;
+
+  &:hover {
+    border-color: var(--border-color);
+  }
+}
