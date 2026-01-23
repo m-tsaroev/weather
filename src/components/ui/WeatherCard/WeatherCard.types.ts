@@ -1,4 +1,5 @@
 interface WeatherCardProps {
+  id: number
   city: string
   isActive: boolean
 }

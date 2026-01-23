@@ -22,18 +22,18 @@ const Tab = (props: TabProps) => {
       motionParams={{
         initial: {
           y: -8,
-          opacity: 0
+          opacity: 0,
         },
         animate: {
           y: 0,
-          opacity: isActive ? 1 : 0.5
+          opacity: isActive ? 1 : 0.5,
         },
         exit: {
           y: 8,
-          opacity: 0
+          opacity: 0,
         },
         whileHover: {
-          opacity: 1
+          opacity: 1,
         },
         transition: {
           duration: 0.2,

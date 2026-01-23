@@ -8,6 +8,7 @@ import type { OverlaedFormProps } from './OverlaedForm.types'
 
 const OverlaedForm = (props: OverlaedFormProps) => {
   const {
+    id,
     value,
     setValueFunction,
     onSubmitFunction,
@@ -17,7 +18,7 @@ const OverlaedForm = (props: OverlaedFormProps) => {
   } = props
 
   return (
-    <OverlayModal overlayName={overlayModalName}>
+    <OverlayModal id={id} overlayName={overlayModalName}>
       <form className={styles.form} onSubmit={onSubmitFunction}>
         {errorMessage && (
           <motion.p

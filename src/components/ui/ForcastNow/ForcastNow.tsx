@@ -13,7 +13,7 @@ import styles from './ForcastNow.module.css'
 import type { ForcastNowProps } from './ForcastNow.types'
 
 const ForcastNow = (props: ForcastNowProps) => {
-  const { city, data, isActive, isLoading } = props
+  const { id, city, data, isActive, isLoading } = props
 
   const [formFieldValue, setFormFieldValue] = useState<string>('')
   const [errorMessage, setErrorMessage] = useState<string>('')
@@ -35,7 +35,7 @@ const ForcastNow = (props: ForcastNowProps) => {
   }
 
   const onRenameFormOpenButtonClick = () => {
-    activateModal('isShowRenameWeatherFormModal')
+    activateModal({ isShowRenameWeatherFormModalIndex: id })
   }
 
   const onRenameButtonClick = async (event: FormEvent<HTMLFormElement>) => {
@@ -53,7 +53,7 @@ const ForcastNow = (props: ForcastNowProps) => {
 
       renameCity({ cityName: city, newCityName: formFieldValue })
       setFormFieldValue('')
-      disactivateModal('isShowRenameWeatherFormModal')
+      disactivateModal('isShowRenameWeatherFormModalIndex')
       setErrorMessage('')
       setIsFormLoading(false)
     } catch (error) {
@@ -112,6 +112,7 @@ const ForcastNow = (props: ForcastNowProps) => {
       tabIndex={isActive ? 0 : -1}
     >
       <OverlaedForm
+        id={id}
         value={formFieldValue}
         setValueFunction={onFormFiledValueFunction}
         onSubmitFunction={onRenameButtonClick}

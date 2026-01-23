@@ -10,7 +10,7 @@ import styles from './OverlayModal.module.css'
 import type { OverlayModalProps } from './OverlayModal.types'
 
 const OverlayModal = (props: OverlayModalProps) => {
-  const { overlayName, children } = props
+  const { id, overlayName, children } = props
 
   const {
     ref: blockRef,
@@ -22,7 +22,7 @@ const OverlayModal = (props: OverlayModalProps) => {
   const {
     isShowWeatherDisplayTypeModal,
     isShowAddWeatherFormModal,
-    isShowRenameWeatherFormModal,
+    isShowRenameWeatherFormModalIndex,
   } = useTypedSelector((state) => state.modalWindows)
   const { disactivateModal } = useActions()
 
@@ -32,15 +32,16 @@ const OverlayModal = (props: OverlayModalProps) => {
     if (overlayName === 'AddForm') {
       setIsShowModal(isShowAddWeatherFormModal)
     } else if (overlayName === 'RenameForm') {
-      setIsShowModal(isShowRenameWeatherFormModal)
+      setIsShowModal(isShowRenameWeatherFormModalIndex === id)
     } else if (overlayName === 'WeatherDisplayTypes') {
       setIsShowModal(isShowWeatherDisplayTypeModal)
     }
   }, [
     isShowWeatherDisplayTypeModal,
     isShowAddWeatherFormModal,
-    isShowRenameWeatherFormModal,
+    isShowRenameWeatherFormModalIndex,
     overlayName,
+    id,
   ])
 
   useEffect(() => {

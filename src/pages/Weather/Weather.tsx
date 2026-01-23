@@ -131,6 +131,7 @@ const Weather = () => {
     <section className='section' aria-labelledby={titleId}>
       <WeatherDisplayTypeBLock />
       <OverlaedForm
+        id={activeCityIndex}
         value={formFieldValue}
         setValueFunction={onFormFieldChange}
         onSubmitFunction={onFormSubmitFunction}
@@ -190,7 +191,7 @@ const Weather = () => {
               swiperInstansSetter: setSliderInstans,
             }}
           >
-            {cities.map((city) => (
+            {cities.map((city, index) => (
               <SwiperSlide
                 style={{
                   display: 'flex',
@@ -198,15 +199,20 @@ const Weather = () => {
                 }}
                 key={city}
               >
-                <WeatherCard city={city} isActive={city === activeCityName} />
+                <WeatherCard
+                  id={index}
+                  city={city}
+                  isActive={city === activeCityName}
+                />
               </SwiperSlide>
             ))}
           </Slider>
         ) : isSelectDisplayType ? (
           cities.map(
-            (city) =>
+            (city, index) =>
               city === activeCityName && (
                 <WeatherCard
+                  id={index}
                   city={city}
                   isActive={city === activeCityName}
                   key={city}

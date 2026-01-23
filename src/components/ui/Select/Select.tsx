@@ -153,7 +153,7 @@ const Select = (props: SelectProps) => {
             aria-selected={option?.isSelected}
             onClick={() => {
               option.optionFunction?.()
-              setIsDropDownShow(false) 
+              setIsDropDownShow(false)
             }}
             key={index}
           >
