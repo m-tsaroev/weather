@@ -1,0 +1,6 @@
+.weatherCard {
+  display: grid;
+  row-gap: 20px;
+  width: 660px;
+  height: 680px;
+}

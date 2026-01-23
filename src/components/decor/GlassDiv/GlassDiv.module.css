@@ -4,6 +4,7 @@
 
   backdrop-filter: blur(22px);
   -webkit-backdrop-filter: blur(22px);
+  overflow: hidden;
 }
 
 .hasCircles {
@@ -21,16 +22,16 @@
   &::before {
     width: 50%;
     height: 50%;
-    top: -60px;
-    left: -70px;
+    top: -15%;
+    left: -18%;
     background: radial-gradient(circle, var(--color-light-op-05), #00000000);
   }
 
   &::after {
     width: 65%;
     height: 65%;
-    bottom: -70px;
-    right: -90px;
+    bottom: -18%;
+    right: -23%;
     opacity: 0.25;
     background: radial-gradient(circle, var(--color-light-op-05), #00000000);
   }

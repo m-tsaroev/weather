@@ -1,0 +1,41 @@
+.field {
+  position: relative;
+}
+
+.label {
+  position: absolute;
+  top: 50%;
+  left: 17px;
+  translate: 0 -50%;
+  transition-duration: var(--transition-duration);
+  color: var(--color-gray-700);
+  cursor: text;
+  user-select: none;
+}
+
+.labelShrink {
+  scale: 0.7;
+  translate: -1.5em -2.6em;
+}
+
+.labelColor {
+  color: var(--color-light);
+}
+
+.input {
+  background: none;
+  color: var(--color-light);
+  font-size: 16px;
+  border: 2px solid var(--color-gray-800);
+  border-radius: 12px;
+  padding: 8px;
+  transition-duration: var(--transition-duration);
+  width: 100%;
+  max-width: 260px;
+
+  &:focus {
+    outline: none;
+    background-color: var(--color-gray-700);
+    border-color: var(--color-light);
+  }
+}

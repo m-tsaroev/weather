@@ -1,14 +1,19 @@
+import { Select } from '@/components/ui/Select'
 import { ICONS } from '@/config/icons'
 import { PATHS } from '@/config/paths'
+import { useActions } from '@/hooks/useActions'
 import { useTypedSelector } from '@/hooks/useTypedSelector'
 import classNames from 'classnames'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import styles from './Header.module.css'
 
 const Header = () => {
   const location = useLocation()
+  const navigate = useNavigate()
 
   const { hasValidApiKey } = useTypedSelector((state) => state.apiKey)
+
+  const { activateModal } = useActions()
 
   return (
     <header className={styles.header}>
@@ -16,9 +21,31 @@ const Header = () => {
         <ul className={styles.list}>
           {location.pathname === PATHS.WEATHER ? (
             <li className={classNames(styles.item, styles.setupItem)}>
-              <Link className={styles.setupLink} to={PATHS.SETUP}>
+              <Select
+                name='header'
+                hasSelection={false}
+                value={ICONS.GEAR}
+                options={[
+                  {
+                    name: 'Setup',
+                    optionFunction: () => {
+                      return navigate(PATHS.SETUP)
+                    },
+                  },
+                  {
+                    name: 'Weather display type',
+                    optionFunction: () => {
+                      activateModal('isShowWeatherDisplayTypeModal')
+                    },
+                  },
+                ]}
+                tabIndex={0}
+                className={styles.select}
+              />
+
+              {/* <Link className={styles.setupLink} to={PATHS.SETUP}>
                 {ICONS.GEAR}
-              </Link>
+              </Link> */}
             </li>
           ) : (
             location.pathname !== PATHS.WEATHER && (

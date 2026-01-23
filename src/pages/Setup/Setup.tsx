@@ -1,9 +1,9 @@
 import { GlassDiv } from '@/components/decor/GlassDiv'
 import { Button } from '@/components/ui/Button'
+import { Field } from '@/components/ui/Field'
 import { useActions } from '@/hooks/useActions'
 import { useTypedSelector } from '@/hooks/useTypedSelector'
 import { useLazyValidateApiKeyQuery } from '@/store/api/weatherApi.slice'
-import classNames from 'classnames'
 import { useCallback, useState, type FormEvent } from 'react'
 import styles from './Setup.module.css'
 
@@ -11,7 +11,6 @@ const Setup = () => {
   const titleId = 'setup'
 
   const [fieldValue, setFieldValue] = useState<string>('')
-  const [isFieldFocus, setIsFieldFocus] = useState<boolean>(false)
   const [isError, setIsError] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -45,7 +44,6 @@ const Setup = () => {
         })
         setIsError(false)
         setIsLoading(false)
-        setIsFieldFocus(false)
       } catch {
         setIsError(true)
       } finally {
@@ -65,8 +63,8 @@ const Setup = () => {
   )
 
   return (
-    <section className={styles.section} aria-labelledby={titleId}>
-      <GlassDiv hasCircles={true} className={styles.body}>
+    <section className='section' aria-labelledby={titleId}>
+      <GlassDiv hasCircles className={styles.body}>
         <h1 className={styles.title} id={titleId}>
           Настройка
         </h1>
@@ -94,31 +92,16 @@ const Setup = () => {
         >
           {!hasValidApiKey && (
             <>
-              <div className={styles.field}>
-                <label
-                  className={classNames(styles.label, {
-                    [styles.labelShrink]: fieldValue || isFieldFocus,
-                    [styles.labelColor]: isFieldFocus,
-                  })}
-                  htmlFor='api-key'
-                >
-                  API ключ
-                </label>
-                <input
-                  type='password'
-                  className={styles.input}
-                  value={fieldValue}
-                  onChange={onChangeFieldValue}
-                  onFocus={() => setIsFieldFocus(true)}
-                  onBlur={() => setIsFieldFocus(false)}
-                  id='api-key'
-                  placeholder=' '
-                  autoComplete='off'
-                />
-              </div>
+              <Field
+                value={fieldValue}
+                setValueFunction={onChangeFieldValue}
+                label='API ключ'
+                id='api-key'
+                type='password'
+              />
 
               <Button
-                lable={isLoading ? 'Loading...' : 'Add key'}
+                label={isLoading ? 'Loading...' : 'Add key'}
                 className={styles.button}
                 type='submit'
               />
@@ -126,7 +109,7 @@ const Setup = () => {
           )}
           {hasValidApiKey && (
             <Button
-              lable='Delete key'
+              label='Delete key'
               className={styles.button}
               type='submit'
             />

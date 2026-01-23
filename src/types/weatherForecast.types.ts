@@ -1,3 +1,5 @@
+import type { WeatherCode } from '@/config/icons'
+
 interface Day {
   maxtemp_c: number
   maxtemp_f: number
@@ -11,18 +13,32 @@ interface Hour {
   temp_c: number
   temp_f: number
   condition: Condition
+  is_day: 1 | 0
 }
 
 interface Condition {
   text: string
   icon: string
-  code?: number
+  code: WeatherCode
+}
+
+interface Location {
+  name: string
+  localtime_epoch: number
+  tz_id: string
 }
 
 interface CurrentDay {
   temp_c: number
   temp_f: number
+  feelslike_c: number
+  feelslike_f: number
+  wind_kph: number
+  wind_mph: number
+  humidity: number
+  pressure_mb: number
   condition: Condition
+  is_day: 1 | 0
 }
 
 interface ForecastDay {
@@ -33,10 +49,21 @@ interface ForecastDay {
 }
 
 interface ForecastApiResponse {
+  location: Location
   current: CurrentDay
   forecast: {
     forecastday: ForecastDay[]
   }
 }
 
-export type { CurrentDay, ForecastApiResponse, ForecastDay }
+interface Error {
+  status: number
+  data?: {
+    error: {
+      code: number
+      message: string
+    }
+  }
+}
+
+export type { CurrentDay, Error, ForecastApiResponse, ForecastDay, Hour }

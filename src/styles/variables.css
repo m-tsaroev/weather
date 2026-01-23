@@ -7,6 +7,7 @@
   --container-padding-x: 16px;
 
   --font-family: 'Roboto', sans-serif;
+  --font-family-accent: 'Rubik', sans-serif;
 
   --color-light: #ffffff;
   --color-light-op-02: #ffffff20;
@@ -15,8 +16,11 @@
   --color-light-op-05: #ffffff50;
 
   --color-black: #000000;
+  --color-black-op-05: #00000050;
   --color-raisin-black: #282728;
+  --color-raisin-black-op-08: #28272880;
 
+  --color-gray-600: #7d7878;
   --color-gray-700: #515151;
   --color-gray-800: #3b3b3b;
 
@@ -27,7 +31,9 @@
 
   --color-red: #fe080a;
 
-  --border: 1px solid rgba(255, 255, 255, 0.12);
+  --border-color: rgba(255, 255, 255, 0.12);
+
+  --border: 1px solid var(--border-color);
 
   --block-background: rgba(255, 255, 255, 0.06);
 

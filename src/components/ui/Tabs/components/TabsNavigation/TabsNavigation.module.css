@@ -1,0 +1,43 @@
+.navigation {
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+  max-width: 660px;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+
+
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-gray-600) transparent;
+
+  &::-webkit-scrollbar-button:horizontal:start:decrement,
+  &::-webkit-scrollbar-button:horizontal:end:increment {
+    background: red !important;
+    display: block !important;
+  }
+
+  &::-webkit-scrollbar-button {
+    background: red;
+  }
+
+  &::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--color-light);
+    border-radius: 3px;
+  }
+}
+
+
+.addButton {
+  flex: 0 0 auto;
+}
