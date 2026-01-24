@@ -68,7 +68,9 @@ const Slider = (props: SliderProps) => {
         {hasNavigation && (
           <div className={styles.buttons}>
             <button
-              className={classNames('prevButton', styles.prevButton)}
+              className={classNames('prevButton', styles.prevButton, {
+                'visually-hidden': slidesCardsCount === 1,
+              })}
               disabled={activeSlideIndex === 0}
               onClick={onPrevCLick}
             >
@@ -78,6 +80,9 @@ const Slider = (props: SliderProps) => {
             {activeSlideIndex === slidesCardsCount - 1 &&
               onAddButtonFunction && (
                 <AddCityButton
+                  className={classNames({
+                    [styles.toLeft]: slidesCardsCount === 1,
+                  })}
                   onClickFunction={onAddButtonFunction}
                   side='right'
                 />

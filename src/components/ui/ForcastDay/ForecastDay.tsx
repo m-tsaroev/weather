@@ -1,4 +1,5 @@
 import { GlassDiv } from '@/components/decor/GlassDiv'
+import { Spinner } from '@/components/ui/Spinner'
 import { TimeCard } from '@/components/ui/TimeCard'
 import type { Hour } from '@/types/weatherForecast.types'
 import { getHourFromSeconds } from '@/utils/getHourFromSeconds'
@@ -23,6 +24,14 @@ const ForecastDay = (props: ForecastDayProps) => {
 
     setHours(hourArray.filter((_, index) => index >= nowHour || index >= 18))
   }, [data, nowHour])
+
+  if (isLoading) {
+    return (
+      <GlassDiv className={styles.forecastDay} hasCircles>
+        <Spinner />
+      </GlassDiv>
+    )
+  }
 
   return (
     <GlassDiv

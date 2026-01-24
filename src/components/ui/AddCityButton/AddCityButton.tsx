@@ -14,10 +14,12 @@ const AddCityButton = (props: AddCityButtonProps) => {
       })}
       onClick={onClickFunction}
       initial={{
-        translateX: side === 'left' ? -100 : 100,
+        translateX: side === 'left' ? -100 : side === 'top' ? '-50%' : 100,
+        translateY: side === 'top' ? -10 : 'auto'
       }}
       animate={{
         translateX: 0,
+        translateY: side === 'top' ? '-50%' : 'auto'
       }}
       transition={{
         type: 'tween',

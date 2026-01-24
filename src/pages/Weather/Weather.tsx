@@ -142,87 +142,92 @@ const Weather = () => {
       <h1 className='visually-hidden' id={titleId}>
         Weather
       </h1>
-      <div className={classNames(styles.body)}>
-        {isSelectDisplayType && (
-          <Select
-            name='weather-card'
-            hasSelection={false}
-            value={<Building2 />}
-            options={[
-              ...cities.map((city, index) => {
-                return {
-                  name: city,
-                  optionFunction: () => {
-                    changeActiveCity(index)
-                  },
-                }
-              }),
-              {
-                name: '+',
-                optionFunction: onAddFuction,
-                mode: 'border',
-              },
-            ]}
-            tabIndex={0}
-            className={styles.select}
-          />
-        )}
-        {cities.length === 0 ? (
-          <AddCityButton onClickFunction={onAddFuction} side='right' />
-        ) : isSliderDisplayType ? (
-          <Slider
-            key={`slider-${swiperKey}`}
-            className='weather-slider'
-            slidesCardsCount={cities.length}
-            sliderParams={{
-              mode: 'custom',
-              slidesPerView: 'auto',
-              hasPagination: true,
-              hasNavigation: true,
-              initialSlideIndex: activeCityIndex,
-              hasSimulateTouch: false,
-              hasAllowTouchMove: false,
-              activeSlideIndex: activeCityIndex,
-              changeActiveSlideFunction: changeActiveCity,
-              onAddButtonFunction: onAddFuction,
-              onNextCLick: onNextButtonClick,
-              onPrevCLick: onPrevButtonClick,
-              onPaginationBulletCLick: onPaginationBulletButtonClick,
-              swiperInstansSetter: setSliderInstans,
-            }}
-          >
-            {cities.map((city, index) => (
-              <SwiperSlide
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center   ',
-                }}
-                key={city}
-              >
-                <WeatherCard
-                  id={index}
-                  city={city}
-                  isActive={city === activeCityName}
-                />
-              </SwiperSlide>
-            ))}
-          </Slider>
-        ) : isSelectDisplayType ? (
-          cities.map(
-            (city, index) =>
-              city === activeCityName && (
-                <WeatherCard
-                  id={index}
-                  city={city}
-                  isActive={city === activeCityName}
+      {cities.length === 0 ? (
+        <AddCityButton
+          className={styles.addButton}
+          onClickFunction={onAddFuction}
+        />
+      ) : (
+        <div className={classNames(styles.body)}>
+          {isSelectDisplayType && (
+            <Select
+              name='weather-card'
+              hasSelection={false}
+              value={<Building2 />}
+              options={[
+                ...cities.map((city, index) => {
+                  return {
+                    name: city,
+                    optionFunction: () => {
+                      changeActiveCity(index)
+                    },
+                  }
+                }),
+                {
+                  name: '+',
+                  optionFunction: onAddFuction,
+                  mode: 'border',
+                },
+              ]}
+              tabIndex={0}
+              className={styles.select}
+            />
+          )}
+          {isSliderDisplayType ? (
+            <Slider
+              key={`slider-${swiperKey}`}
+              className='weather-slider'
+              slidesCardsCount={cities.length}
+              sliderParams={{
+                mode: 'custom',
+                slidesPerView: 1,
+                hasPagination: true,
+                hasNavigation: true,
+                initialSlideIndex: activeCityIndex,
+                hasSimulateTouch: false,
+                hasAllowTouchMove: false,
+                activeSlideIndex: activeCityIndex,
+                changeActiveSlideFunction: changeActiveCity,
+                onAddButtonFunction: onAddFuction,
+                onNextCLick: onNextButtonClick,
+                onPrevCLick: onPrevButtonClick,
+                onPaginationBulletCLick: onPaginationBulletButtonClick,
+                swiperInstansSetter: setSliderInstans,
+              }}
+            >
+              {cities.map((city, index) => (
+                <SwiperSlide
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                  }}
                   key={city}
-                />
-              ),
-          )
-        ) : (
-          isTabsDisplayType && <Tabs items={cities} />
-        )}
-      </div>
+                >
+                  <WeatherCard
+                    id={index}
+                    city={city}
+                    isActive={city === activeCityName}
+                  />
+                </SwiperSlide>
+              ))}
+            </Slider>
+          ) : isSelectDisplayType ? (
+            cities.map(
+              (city, index) =>
+                city === activeCityName && (
+                  <WeatherCard
+                    id={index}
+                    city={city}
+                    isActive={city === activeCityName}
+                    key={city}
+                  />
+                ),
+            )
+          ) : (
+            isTabsDisplayType && <Tabs items={cities} />
+          )}
+        </div>
+      )}
     </section>
   )
 }

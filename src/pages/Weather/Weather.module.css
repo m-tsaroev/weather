@@ -1,5 +1,7 @@
 .body {
   max-width: 1000px;
+  min-width: 200px;
+  min-height: 200px;
   overflow: hidden;
   padding-top: 60px;
   position: relative;
@@ -10,4 +12,14 @@
   top: 10px;
   right: 10px;
   z-index: 100;
+}
+
+.addButton {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  width: 500px;
+  height: 500px;
 }
