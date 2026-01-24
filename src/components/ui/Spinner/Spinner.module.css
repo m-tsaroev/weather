@@ -1,0 +1,19 @@
+.spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: spin 1s linear infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes spin {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}

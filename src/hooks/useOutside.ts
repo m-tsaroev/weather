@@ -29,7 +29,7 @@ const useOutside = <RefElementType extends HTMLElement>(
 
       setTimeout(() => {
         setIsClickOutside(false)
-      }, 500);
+      }, 500)
     }
   }
 

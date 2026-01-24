@@ -9,7 +9,7 @@ const allActions = {
   ...apiKeyActions,
   ...citiesActions,
   ...modalWindowsActions,
-  ...weatherDisplayTypesAction
+  ...weatherDisplayTypesAction,
 }
 
 const useActions = () => {

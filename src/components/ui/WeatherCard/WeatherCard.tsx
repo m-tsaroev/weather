@@ -8,7 +8,7 @@ import styles from './WeatherCard.module.css'
 import type { WeatherCardProps } from './WeatherCard.types'
 
 const WeatherCard = (props: WeatherCardProps) => {
-  const { city, isActive } = props
+  const { id, city, isActive } = props
 
   const [hasLoaded, setHasLoaded] = useState<boolean>(false)
 
@@ -46,6 +46,7 @@ const WeatherCard = (props: WeatherCardProps) => {
         className={styles.weatherCard}
       >
         <ForcastNow
+          id={id}
           city={city}
           data={data}
           isActive={isActive}

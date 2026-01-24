@@ -60,3 +60,21 @@
     }
   }
 }
+
+.selectButton {
+  width: 50px;
+  height: 50px;
+  padding: 10px;
+  border-radius: 8px;
+
+  &:hover {
+    background-color: var(--color-light-op-03);
+    color: var(--color-light);
+  }
+
+  svg {
+    width: 100%;
+    height: 100%;
+    transition-duration: var(--transition-duration);
+  }
+}

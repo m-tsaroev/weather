@@ -1,6 +1,6 @@
 interface AddCityButtonProps {
   onClickFunction: () => void
-  className: string
+  className?: string
   side?: 'left' | 'right' | 'top' | 'bottom'
   mode?: 'for-tabs'
 }

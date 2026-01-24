@@ -6,8 +6,8 @@ import { LocalStorageService } from '@/utils/LocalStorageService'
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 
 const initialState: CitiesSliceState = {
-  cities: ['London', 'Nazran'],
-  activeCityName: 'London',
+  cities: [],
+  activeCityName: '',
   activeCityIndex: 0,
 }
 

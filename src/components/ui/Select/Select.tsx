@@ -22,6 +22,7 @@ const Select = (props: SelectProps) => {
     tabIndex = 0,
     dropdownSide = 'left',
     className,
+    selectButtonClassName,
   } = props
 
   const [selectOptionIndex, setSelectOptionIndex] = useState<number>(-1)
@@ -117,6 +118,7 @@ const Select = (props: SelectProps) => {
           styles.selectButton,
           isDropDownShow && styles.isOpen,
           hasHover && styles.hover,
+          selectButtonClassName,
         )}
         role='combobox'
         aria-expanded={isDropDownShow}
@@ -153,7 +155,7 @@ const Select = (props: SelectProps) => {
             aria-selected={option?.isSelected}
             onClick={() => {
               option.optionFunction?.()
-              setIsDropDownShow(false) 
+              setIsDropDownShow(false)
             }}
             key={index}
           >

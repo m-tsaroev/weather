@@ -9,7 +9,4 @@ type ActivateDisplayTypeActionPayload =
   | 'isSliderDisplayType'
   | 'isTabsDisplayType'
 
-export type {
-  ActivateDisplayTypeActionPayload,
-  SliceInitialState,
-}
+export type { ActivateDisplayTypeActionPayload, SliceInitialState }

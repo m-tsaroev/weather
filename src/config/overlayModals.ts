@@ -1,6 +1,6 @@
 const OVERLAY_MODALS = {
   AddForm: 'isShowAddWeatherFormModal',
-  RenameForm: 'isShowRenameWeatherFormModal',
+  RenameForm: 'isShowRenameWeatherFormModalIndex',
   WeatherDisplayTypes: 'isShowWeatherDisplayTypeModal',
 } as const
 

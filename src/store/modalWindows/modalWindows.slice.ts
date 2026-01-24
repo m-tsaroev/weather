@@ -7,7 +7,7 @@ import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 
 const initialState: SliceIninitialState = {
   isShowAddWeatherFormModal: false,
-  isShowRenameWeatherFormModal: false,
+  isShowRenameWeatherFormModalIndex: -1,
   isShowWeatherDisplayTypeModal: false,
 }
 
@@ -19,19 +19,29 @@ const modalWindowsSlice = createSlice({
       state,
       action: PayloadAction<ActivateModalActionPayload>,
     ) => {
-      state[action.payload] = true
+      if (typeof action.payload === 'string') {
+        state[action.payload] = true
+        return
+      }
+
+      state.isShowRenameWeatherFormModalIndex =
+        action.payload.isShowRenameWeatherFormModalIndex
     },
 
     disactivateModal: (
       state,
       action: PayloadAction<DisactivateModalActionPayload>,
     ) => {
-      state[action.payload] = false
-    },
+      if (action.payload !== 'isShowRenameWeatherFormModalIndex') {
+        state[action.payload] = false
+        return
+      }
 
+      state.isShowRenameWeatherFormModalIndex = -1
+    },
   },
 })
 
-export {modalWindowsSlice}
+export { modalWindowsSlice }
 export const modalWindowsReducer = modalWindowsSlice.reducer
 export const modalWindowsActions = modalWindowsSlice.actions

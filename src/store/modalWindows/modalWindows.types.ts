@@ -1,17 +1,17 @@
 interface SliceIninitialState {
   isShowAddWeatherFormModal: boolean
-  isShowRenameWeatherFormModal: boolean
+  isShowRenameWeatherFormModalIndex: number
   isShowWeatherDisplayTypeModal: boolean
 }
 
 type ActivateModalActionPayload =
   | 'isShowAddWeatherFormModal'
-  | 'isShowRenameWeatherFormModal'
+  | { isShowRenameWeatherFormModalIndex: number }
   | 'isShowWeatherDisplayTypeModal'
 
 type DisactivateModalActionPayload =
   | 'isShowAddWeatherFormModal'
-  | 'isShowRenameWeatherFormModal'
+  | 'isShowRenameWeatherFormModalIndex'
   | 'isShowWeatherDisplayTypeModal'
 
 export type {

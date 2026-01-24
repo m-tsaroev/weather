@@ -41,6 +41,7 @@ const Header = () => {
                 ]}
                 tabIndex={0}
                 className={styles.select}
+                selectButtonClassName={styles.selectButton}
               />
 
               {/* <Link className={styles.setupLink} to={PATHS.SETUP}>

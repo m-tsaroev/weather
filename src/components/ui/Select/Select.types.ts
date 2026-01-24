@@ -18,6 +18,7 @@ interface SelectProps {
   tabIndex?: number
   dropdownSide?: 'left' | 'center' | 'right'
   className: string
+  selectButtonClassName?: string
 }
 
 export type { Option, SelectProps }
