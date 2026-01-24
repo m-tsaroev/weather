@@ -5,7 +5,7 @@ import { useOutside } from '@/hooks/useOutside'
 import { useTypedSelector } from '@/hooks/useTypedSelector'
 import { Plus } from 'lucide-react'
 import { AnimatePresence, motion } from 'motion/react'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type KeyboardEvent } from 'react'
 import styles from './OverlayModal.module.css'
 import type { OverlayModalProps } from './OverlayModal.types'
 
@@ -64,6 +64,14 @@ const OverlayModal = (props: OverlayModalProps) => {
     disactivateModal(OVERLAY_MODALS[overlayName])
   }
 
+  const onModalEscapeKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    const { code } = event
+  
+    if (code === 'Escape') {
+      onCloseFunction()
+    }
+  }
+
   return (
     <AnimatePresence>
       {isShowBlock && (
@@ -80,6 +88,7 @@ const OverlayModal = (props: OverlayModalProps) => {
           transition={{
             duration: 0.2,
           }}
+          onKeyDown={onModalEscapeKeyDown}
           className={styles.overlay}
         >
           <GlassDiv className={styles.block} ref={blockRef}>
