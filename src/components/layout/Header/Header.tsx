@@ -27,13 +27,13 @@ const Header = () => {
                 value={ICONS.GEAR}
                 options={[
                   {
-                    name: 'Setup',
+                    name: 'Настройки',
                     optionFunction: () => {
                       return navigate(PATHS.SETUP)
                     },
                   },
                   {
-                    name: 'Weather display type',
+                    name: 'Вид погоды',
                     optionFunction: () => {
                       activateModal('isShowWeatherDisplayTypeModal')
                     },

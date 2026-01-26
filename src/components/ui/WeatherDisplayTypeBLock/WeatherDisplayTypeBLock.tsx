@@ -22,21 +22,21 @@ const WeatherDisplayTypeBLock = () => {
   }
 
   return (
-    <OverlayModal overlayName='WeatherDisplayTypes'>
+    <OverlayModal id={-2} overlayName='WeatherDisplayTypes'>
       <Button
-        label='Select'
+        label='Выборка'
         onClickFunction={onSelectChooseButtonClick}
         type='button'
         className={styles.button}
       />
       <Button
-        label='Slider'
+        label='Слайдер'
         onClickFunction={onSliderChooseButtonClick}
         type='button'
         className={styles.button}
       />
       <Button
-        label='Tabs'
+        label='Вкладки'
         onClickFunction={onTabsChooseButtonClick}
         type='button'
         className={styles.button}

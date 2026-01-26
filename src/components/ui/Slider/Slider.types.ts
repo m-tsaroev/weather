@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react'
-import type { BasicSliderProps } from './components/BasicSlider'
+import type { BasicSliderPropsParams } from './components/BasicSlider/BasicSlider.types'
 import type { CustomSliderPropsParams } from './components/CustomSlider'
 
-interface BasicSliderParams extends BasicSliderProps {
+interface BasicSliderParams extends BasicSliderPropsParams {
   mode: 'basic'
 }
 

@@ -1,6 +1,6 @@
-import type { ReactNode } from "react"
+import type { ReactNode } from 'react'
 
-interface BasicSliderProps {
+interface BasicSliderPropsParams {
   hasPagination?: boolean
   hasNavigation?: boolean
   slidesPerView: number | 'auto'
@@ -8,8 +8,11 @@ interface BasicSliderProps {
   hasSimulateTouch?: boolean
   hasAllowTouchMove?: boolean
   spaceBetween?: number
+}
+
+interface BasicSliderProps extends BasicSliderPropsParams {
   className: string
   children: ReactNode[]
 }
 
-export type { BasicSliderProps }
+export type { BasicSliderProps, BasicSliderPropsParams }

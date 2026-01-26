@@ -15,9 +15,10 @@ const Tabs = (props: TabsProps) => {
       <TabsNavigation items={items} />
       <div className={styles.panel} role='tabpanel'>
         {items.map(
-          (item) =>
+          (item, index) =>
             item === activeCityName && (
               <WeatherCard
+                id={index}
                 city={item}
                 isActive={activeCityName === item}
                 key={item}

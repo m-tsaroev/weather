@@ -40,7 +40,6 @@ const ForecastDay = (props: ForecastDayProps) => {
     >
       <Slider
         className={styles.forecastDaySlider}
-        slidesCardsCount={hours.length}
         sliderParams={{
           mode: 'basic',
           slidesPerView: 6.3,
