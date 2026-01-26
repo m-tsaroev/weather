@@ -1,5 +1,5 @@
 const URLS = {
-  BASE: 'http://api.weatherapi.com/v1/',
+  BASE: 'https://api.weatherapi.com/v1/',
 }
 
 const ENDPOINTS = {
