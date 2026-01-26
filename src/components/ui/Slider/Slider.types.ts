@@ -1,37 +1,18 @@
-import type { Dispatch, ReactNode, SetStateAction } from 'react'
-import type { SwiperClass } from 'swiper/react'
+import type { ReactNode } from 'react'
+import type { BasicSliderProps } from './components/BasicSlider'
+import type { CustomSliderPropsParams } from './components/CustomSlider'
 
-interface BaseSliderParams {
-  slidesPerView: number | 'auto'
-  initialSlideIndex?: number
-  hasSimulateTouch?: boolean
-  hasAllowTouchMove?: boolean
-  spaceBetween?: number
-}
-
-interface BasicSliderParams extends BaseSliderParams {
+interface BasicSliderParams extends BasicSliderProps {
   mode: 'basic'
-  hasPagination?: boolean
-  hasNavigation?: boolean
 }
 
-interface CustomSliderParams extends BaseSliderParams {
+interface CustomSliderParams extends CustomSliderPropsParams {
   mode: 'custom'
-  hasPagination: boolean
-  hasNavigation: boolean
-  activeSlideIndex: number
-  changeActiveSlideFunction?: (slideIndex: number) => void
-  onAddButtonFunction?: () => void
-  onNextCLick?: () => void
-  onPrevCLick?: () => void
-  onPaginationBulletCLick?: (index: number) => void
-  swiperInstansSetter?: Dispatch<SetStateAction<SwiperClass | null>>
 }
 
 interface SliderProps {
   className: string
-  children: ReactNode
-  slidesCardsCount: number
+  children: ReactNode[]
   sliderParams: BasicSliderParams | CustomSliderParams
 }
 

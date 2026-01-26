@@ -4,7 +4,6 @@ import { TimeCard } from '@/components/ui/TimeCard'
 import type { Hour } from '@/types/weatherForecast.types'
 import { getHourFromSeconds } from '@/utils/getHourFromSeconds'
 import { useEffect, useState } from 'react'
-import { SwiperSlide } from 'swiper/react'
 import { Slider } from '../Slider'
 import styles from './ForecastDay.module.css'
 import type { ForecastDayProps } from './ForecastDay.types'
@@ -48,22 +47,20 @@ const ForecastDay = (props: ForecastDayProps) => {
           spaceBetween: 15,
         }}
       >
-        {hours.map((hour, index) => (
-          <SwiperSlide className={styles.forecastDaySlide} key={index}>
-            <TimeCard
-              data={hour}
-              isLoading={isLoading}
-              isActive={
-                getHourFromSeconds(
-                  hour.time_epoch,
-                  true,
-                  data?.location.tz_id,
-                ) === nowHour
-              }
-              timeZoneId={data?.location.tz_id}
-              key={hour.time_epoch}
-            />
-          </SwiperSlide>
+        {hours.map((hour) => (
+          <TimeCard
+            data={hour}
+            isLoading={isLoading}
+            isActive={
+              getHourFromSeconds(
+                hour.time_epoch,
+                true,
+                data?.location.tz_id,
+              ) === nowHour
+            }
+            timeZoneId={data?.location.tz_id}
+            key={hour.time_epoch}
+          />
         ))}
       </Slider>
     </GlassDiv>
