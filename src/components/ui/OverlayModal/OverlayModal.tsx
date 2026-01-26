@@ -66,7 +66,7 @@ const OverlayModal = (props: OverlayModalProps) => {
 
   const onModalEscapeKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     const { code } = event
-  
+
     if (code === 'Escape') {
       onCloseFunction()
     }

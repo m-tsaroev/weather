@@ -11,10 +11,7 @@ const Slider = (props: SliderProps) => {
 
   if (mode === 'custom') {
     return (
-      <CustomSlider
-        {...sliderParams}
-        className={className}
-      >
+      <CustomSlider {...sliderParams} className={className}>
         {children}
       </CustomSlider>
     )

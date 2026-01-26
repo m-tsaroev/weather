@@ -1,73 +1,313 @@
-# React + TypeScript + Vite
+# 🌤️ Weather Forecast
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Weather** — это современное веб-приложение для просмотра погоды и прогнозов по названию города. Получайте данные о погоде в реальном времени с удобным интерфейсом, поддержкой нескольких городов и гибкими вариантами отображения.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🎯 Описание проекта
 
-## React Compiler
+**Weather Forecast** — это production-ready React приложение, которое предоставляет полную информацию о погоде, используя сервис WeatherAPI.com. Приложение демонстрирует современные подходы к разработке фронтенда с акцентом на чистую архитектуру, типобезопасность и отличный пользовательский опыт.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### ✨ Основные возможности
 
-## Expanding the ESLint configuration
+- ✅ **Данные о погоде в реальном времени** — текущие условия и прогноз на 10 дней
+- ✅ **Поддержка нескольких городов** — отслеживайте погоду в разных городах одновременно
+- ✅ **Гибкие варианты отображения** — просматривайте данные в виде табов, слайдера или выпадающего меню
+- ✅ **Сохранение данных** — автоматическое сохранение API-ключа и предпочтений городов локально
+- ✅ **Адаптивный дизайн** — красивый UI с эффектом стекла, работающий на всех устройствах
+- ✅ **Типобезопасность** — полная поддержка TypeScript со строгой проверкой типов
+- ✅ **Плавные анимации** — интеграция с Motion для красивых переходов
+- ✅ **Современный дизайн** — оптимизированная цветовая схема для долгого просмотра
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🏗️ Архитектура и технологический стек
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Фронтенд-фреймворк
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- **React 19.1** — последняя версия React с concurrent rendering
+- **TypeScript 5.9** — строгая типизация и отличная поддержка IDE
+- **Vite 7.1** — молниеносный сборщик с HMR
+
+### Управление состоянием
+
+- **Redux Toolkit 2.10** — упрощённый Redux с RTK Query для работы с API
+- **RTK Query** — декларативное кеширование и синхронизация API
+- **React Redux 9.2** — эффективные привязки состояния
+
+### Маршрутизация
+
+- **React Router DOM 7.9** — современная клиентская маршрутизация с loaders
+
+### UI и анимация
+
+- **Motion 12.23** — Framer Motion для плавных анимаций
+- **Swiper 12.0** — touch-friendly карусель для выбора города
+- **Lucide React 0.555** — красивые SVG иконки
+- **Classnames 2.5** — утилита для условных CSS классов
+
+### Опыт разработчика
+
+- **ESLint 9.36** — проверка качества кода
+- **Prettier 3.6** — форматирование кода с организацией импортов
+- **TypeScript Compiler** — полная компиляция TypeScript
+
+---
+
+## 📁 Структура проекта
+
+```
+src/
+├── pages/                    # Компоненты страниц
+│   ├── Setup/               # Страница настройки API-ключа
+│   └── Weather/             # Главная страница с погодой
+├── layouts/                 # Компоненты макетов
+│   ├── Layout/              # Основной макет приложения
+│   ├── SetupLayout/         # Макет страницы настройки
+│   └── WeatherLayout/       # Макет страницы погоды
+├── components/              # Переиспользуемые UI компоненты
+│   ├── ui/                  # UI компоненты (Button, Field, Tabs и т.д.)
+│   ├── layout/              # Компоненты разметки (Header)
+│   └── decor/               # Декоративные компоненты (GlassDiv)
+├── store/                   # Конфигурация Redux хранилища
+│   ├── api/                 # RTK Query API slices
+│   ├── apiKey/              # Slice состояния API-ключа
+│   ├── cities/              # Slice списка городов
+│   ├── modalWindows/        # Управление состоянием модальных окон
+│   └── weatherDisplayTypes/ # Состояние формата отображения
+├── hooks/                   # Пользовательские React хуки
+│   ├── useActions.ts        # Хук для dispatch действий
+│   ├── useTypedSelector.ts  # Type-safe селектор
+│   ├── useLocalStorage.ts   # Управление локальным хранилищем
+│   └── useOutside.ts        # Обнаружение клика вне элемента
+├── config/                  # Файлы конфигурации
+│   ├── urls.ts              # Endpoints API
+│   ├── paths.ts             # Пути маршрутов
+│   ├── icons.tsx            # Маппинг иконок
+│   └── overlayModals.ts     # Конфигурация модальных окон
+├── utils/                   # Вспомогательные функции
+│   ├── LocalStorageService.ts
+│   ├── citiesStorageActions/
+│   └── getHourFromSeconds.ts
+├── types/                   # Типы TypeScript
+├── styles/                  # Глобальные стили
+└── router/                  # Конфигурация маршрутизации
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🚀 Быстрый старт
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Предварительные требования
+
+Для запуска проекта необходимо:
+
+- **Node.js** версии 16.x или выше (или **Bun** runtime)
+- **npm**, **yarn** или **bun** package manager
+- Доступ в интернет (для запросов к API погоды)
+- API-ключ от [WeatherAPI.com](https://weatherapi.com)
+
+Проверить версии можно командами:
+
+```bash
+node -v
+npm -v
 ```
+
+### Клонирование репозитория
+
+```bash
+git clone https://github.com/m-tsaroev/weather.git
+cd weather
+```
+
+### Установка зависимостей
+
+С помощью Bun:
+
+```bash
+bun install
+```
+
+Или с помощью npm:
+
+```bash
+npm install
+```
+
+Или с помощью yarn:
+
+```bash
+yarn install
+```
+
+### Запуск в режиме разработки
+
+С помощью Bun:
+
+```bash
+bun run dev
+```
+
+Или с помощью npm:
+
+```bash
+npm run dev
+```
+
+После запуска откройте браузер и перейдите по адресу: **http://localhost:5173**
+
+---
+
+## ⚙️ Настройка API-ключа
+
+Приложение использует сервис WeatherAPI для получения данных о погоде.
+
+### Получение API-ключа
+
+1. Перейдите на сайт: https://www.weatherapi.com/
+2. Зарегистрируйтесь или войдите в аккаунт
+3. Откройте свой профиль: https://www.weatherapi.com/my/
+4. Скопируйте ваш API-ключ
+
+### Использование API-ключа в приложении
+
+При первом запуске приложения:
+
+1. Вы будете перенаправлены на страницу **Setup**
+2. Вставьте ваш API-ключ в поле ввода
+3. Нажмите кнопку "Сохранить"
+4. Приложение проверит валидность ключа
+5. При успешной проверке вы будете перенаправлены на главную страницу
+
+API-ключ будет сохранён в `localStorage` и использоваться для всех последующих запросов к API.
+
+---
+
+## 💻 Использование приложения
+
+### Первая настройка
+
+1. Получите бесплатный API-ключ на [weatherapi.com](https://weatherapi.com)
+2. Перейдите на страницу **Setup** (Настройка)
+3. Введите ваш API-ключ и сохраните его
+4. Ключ автоматически сохранится в локальном хранилище браузера
+
+### Добавление городов
+
+1. Нажмите кнопку **"Добавить город"**
+2. Введите название города на английском языке
+3. Приложение проверит город и загрузит данные о погоде
+4. Город будет добавлен в ваш список с полной информацией о погоде
+
+### Просмотр данных о погоде
+
+- **По городам** — используйте карусель слайдера для переключения между городами
+- **По времени** — просматривайте часовые прогнозы в табах
+- **По формату** — переключайтесь между разными форматами отображения (табы, слайдер, выпадающее меню)
+
+### Сохранение данных
+
+- Ваш API-ключ автоматически сохраняется
+- Список городов сохраняется между сеансами
+- Все предпочтения хранятся локально в браузере
+
+---
+
+## 🎨 Дизайн и интерфейс
+
+### Glassmorphism UI
+
+Приложение использует современный дизайн с эффектом стекла:
+
+- Контейнеры с эффектом матового стекла
+- Плавные размытые фоны
+- Мягкие тени и подсветка
+
+### Адаптивный макет
+
+- Мобильный дизайн в приоритете
+- Оптимизация для планшетов
+- Улучшенный вид на десктопах
+- Плавные переходы между breakpoints
+
+### Доступность
+
+- Семантическая HTML структура
+- ARIA метки и описания
+- Поддержка клавиатурной навигации
+- Совместимость с экранными читалками
+
+---
+
+## 🔧 Ключевые компоненты
+
+### Страница Weather (`src/pages/Weather/Weather.tsx`)
+
+Главная страница приложения, которая отображает:
+
+- Текущую погоду и данные прогноза
+- Навигацию между городами с помощью карусели
+- Модальное окно для добавления нового города
+- Опции выбора формата отображения (табы, слайдер, выпадающее меню)
+- Обновление данных о погоде в реальном времени
+
+**Особенности:**
+
+- Обработка ошибок при вводе неправильного города
+- Индикаторы загрузки данных
+- Валидация формы
+- Предотвращение добавления дублирующихся городов
+
+### Страница Setup (`src/pages/Setup/Setup.tsx`)
+
+Страница конфигурации для:
+
+- Валидации и сохранения API-ключа
+- Управления ключом
+- Удаления/сброса ключа
+- Визуального отображения статуса валидации
+
+**Особенности:**
+
+- Проверка API-ключа в реальном времени
+- Безопасное хранение в localStorage
+- Информативные сообщения об ошибках
+- Индикаторы загрузки
+
+### Пользовательские хуки
+
+- `useActions()` — типизированный dispatch wrapper
+- `useTypedSelector()` — type-safe Redux селектор
+- `useOutside()` — обнаружение клика вне элемента
+- `useWeatherIcon()` — маппинг условий погоды на иконки
+
+---
+
+## 🔗 Интеграция с API
+
+### WeatherAPI.com
+
+- **Endpoint:** `/forecast.json`
+- **Особенности:** 10-дневный прогноз с часовыми данными
+- **Аутентификация:** на основе API-ключа
+- **Кеширование:** автоматическое кеширование RTK Query
+
+### Обработка ошибок
+
+- Graceful сообщения об ошибках
+- Передача ошибок API
+- Отображение ошибок валидации
+- Обработка сетевых ошибок
+
+---
+
+## 📦 Управление состоянием
+
+### Redux Slices
+
+1. **apiKey** — сохранение API-ключа и статуса валидации
+2. **cities** — управление списком городов и активным городом
+3. **weatherDisplayTypes** — переключение форматов отображения
+4. **modalWindows** — управление видимостью модальных окон
+5. **api** — RTK Query API endpoints

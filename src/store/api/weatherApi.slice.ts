@@ -12,7 +12,7 @@ const weatherApiSlice = apiSlice.injectEndpoints({
           params: {
             key: getInitialKey(),
             q: city,
-            lang: 'ru'
+            lang: 'ru',
           },
         }
       },
@@ -26,7 +26,7 @@ const weatherApiSlice = apiSlice.injectEndpoints({
           params: {
             key: apiKey,
             q: 'Moscow',
-            lang: 'ru'
+            lang: 'ru',
           },
         }
       },
