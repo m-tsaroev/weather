@@ -153,20 +153,20 @@ const ForcastNow = (props: ForcastNowProps) => {
       <ul className={styles.details}>
         <li className={styles.detailsItem}>
           <DetailsCard
-            name='Feels like'
+            name='Ощущ. как'
             value={`${data?.current.feelslike_c}°`}
           />
         </li>
         <li className={styles.detailsItem}>
-          <DetailsCard name='Wind' value={`${data?.current.wind_kph} kph`} />
+          <DetailsCard name='Ветер' value={`${data?.current.wind_kph} км/ч`} />
         </li>
         <li className={styles.detailsItem}>
-          <DetailsCard name='Humidity' value={`${data?.current.humidity} %`} />
+          <DetailsCard name='Влажность' value={`${data?.current.humidity} %`} />
         </li>
         <li className={styles.detailsItem}>
           <DetailsCard
-            name='Pressure'
-            value={`${data?.current.pressure_mb} hPa`}
+            name='Давление'
+            value={`${data?.current.pressure_mb} гПа`}
           />
         </li>
       </ul>
