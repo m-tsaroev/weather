@@ -1,0 +1,36 @@
+.pagination {
+  position: absolute;
+  bottom: auto;
+  left: 50% ;
+  top: 10px;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 15px;
+  z-index: 1000;
+}
+
+.pagiantionBullet {
+  background-color: var(--color-light-op-05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 13px;
+  height: 13px;
+  border: none;
+  border-radius: 50%;
+  transition-duration: var(--transition-duration);
+  cursor: pointer;
+  /* padding: 5px; */
+
+  &:hover {
+    background-color: var(--color-light);
+  }
+}
+
+.isActive {
+  background-color: var(--color-light);
+  scale: 1.2;
+  box-shadow: 0 0 10px var(--color-light);
+}

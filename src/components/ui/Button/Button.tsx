@@ -15,7 +15,7 @@ const Button = (props: ButtonProps) => {
       className={classNames(className, styles.button)}
       type={type}
     >
-      {isLoading ? <Spinner /> : Icon !== null ? <Icon /> : `${label}`}
+      {isLoading ? <Spinner size={20} /> : Icon !== null ? <Icon /> : `${label}`}
     </button>
   )
 }

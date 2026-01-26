@@ -10,14 +10,8 @@ import { useTypedSelector } from '@/hooks/useTypedSelector'
 import { useLazyGetForecastQuery } from '@/store/api/weatherApi.slice'
 import classNames from 'classnames'
 import { Building2 } from 'lucide-react'
-import {
-  useEffect,
-  useRef,
-  useState,
-  type ChangeEvent,
-  type FormEvent,
-} from 'react'
-import { SwiperSlide, type SwiperClass } from 'swiper/react'
+import { useEffect, useRef, useState, type ChangeEvent, type FormEvent } from 'react'
+import type { SwiperClass } from 'swiper/react'
 import styles from './Weather.module.css'
 
 const Weather = () => {
@@ -105,20 +99,8 @@ const Weather = () => {
     activateModal('isShowAddWeatherFormModal')
   }
 
-  const onPrevButtonClick = () => {
-    changeActiveCity(activeCityIndex - 1)
-  }
-
-  const onNextButtonClick = () => {
-    changeActiveCity(activeCityIndex + 1)
-  }
-
-  const onPaginationBulletButtonClick = (activateCityIndex: number) => {
-    changeActiveCity(activateCityIndex)
-  }
-
   const [swiperKey, setSwiperKey] = useState(0)
-  const prevCitiesLength = useRef(cities.length)
+  const prevCitiesLength = useRef<number>(cities.length)
 
   useEffect(() => {
     if (cities.length !== prevCitiesLength.current) {
@@ -177,7 +159,6 @@ const Weather = () => {
             <Slider
               key={`slider-${swiperKey}`}
               className='weather-slider'
-              slidesCardsCount={cities.length}
               sliderParams={{
                 mode: 'custom',
                 slidesPerView: 1,
@@ -186,29 +167,29 @@ const Weather = () => {
                 initialSlideIndex: activeCityIndex,
                 hasSimulateTouch: false,
                 hasAllowTouchMove: false,
-                activeSlideIndex: activeCityIndex,
                 changeActiveSlideFunction: changeActiveCity,
-                onAddButtonFunction: onAddFuction,
-                onNextCLick: onNextButtonClick,
-                onPrevCLick: onPrevButtonClick,
-                onPaginationBulletCLick: onPaginationBulletButtonClick,
-                swiperInstansSetter: setSliderInstans,
+                instansSetter: setSliderInstans,
+                navigationParams: {
+                  hideNextButton: activeCityIndex === cities.length - 1,
+                  additionalElementsParams: {
+                    additionalElements: activeCityIndex ===
+                      cities.length - 1 && (
+                      <AddCityButton
+                        onClickFunction={onAddFuction}
+                        side='right'
+                      />
+                    ),
+                    position: 'end',
+                  },
+                },
               }}
             >
               {cities.map((city, index) => (
-                <SwiperSlide
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                  }}
-                  key={city}
-                >
-                  <WeatherCard
-                    id={index}
-                    city={city}
-                    isActive={city === activeCityName}
-                  />
-                </SwiperSlide>
+                <WeatherCard
+                  id={index}
+                  city={city}
+                  isActive={city === activeCityName}
+                />
               ))}
             </Slider>
           ) : isSelectDisplayType ? (
